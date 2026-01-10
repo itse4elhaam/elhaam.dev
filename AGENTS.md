@@ -3,15 +3,20 @@
 ## Build, Lint, and Test Commands
 
 ```bash
+# Package Manager: bun (NOT npm)
 # Development
-npm run dev              # Start Next.js dev server with Turbopack
+bun run dev              # Start Next.js dev server with Turbopack
 
 # Production
-npm run build            # Build for production
-npm start                # Start production server
+bun run build            # Build for production
+bun start                # Start production server
 
 # Code Quality
-npm run lint             # Run ESLint via Next.js linting
+bun run lint             # Run ESLint via Next.js linting
+
+# Installing dependencies
+bun install              # Install all dependencies
+bun add <package>        # Add a new dependency
 
 # Testing
 # ⚠️ NO TEST SUITE CONFIGURED - No test files or testing framework present
