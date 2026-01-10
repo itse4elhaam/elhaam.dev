@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Geist, Merriweather, Geist_Mono, Caveat } from "next/font/google";
+import { Geist, Merriweather, Caveat } from "next/font/google";
+import localFont from "next/font/local";
 import { ThemeProvider } from "@/components/theme-provider";
 import { PostHogClientProvider } from "@/components/posthog-provider";
 import { SiteHeader } from "@/components/site-header";
@@ -11,9 +12,42 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const jetbrainsMonoNerdMono = localFont({
+  src: [
+    {
+      path: "./fonts/JetBrainsMonoNerdFontMono-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "./fonts/JetBrainsMonoNerdFontMono-Italic.woff2",
+      weight: "400",
+      style: "italic",
+    },
+    {
+      path: "./fonts/JetBrainsMonoNerdFontMono-Medium.woff2",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "./fonts/JetBrainsMonoNerdFontMono-MediumItalic.woff2",
+      weight: "500",
+      style: "italic",
+    },
+    {
+      path: "./fonts/JetBrainsMonoNerdFontMono-Bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "./fonts/JetBrainsMonoNerdFontMono-BoldItalic.woff2",
+      weight: "700",
+      style: "italic",
+    },
+  ],
+  variable: "--font-jetbrains-mono-nerd",
+  display: "swap",
+  fallback: ["ui-monospace", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "Liberation Mono", "Courier New", "monospace"],
 });
 
 const merriweather = Merriweather({
@@ -84,7 +118,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${merriweather.variable} ${caveat.variable} min-h-screen flex flex-col antialiased font-sans bg-background text-foreground`}
+        className={`${geistSans.variable} ${jetbrainsMonoNerdMono.variable} ${merriweather.variable} ${caveat.variable} min-h-screen flex flex-col antialiased font-sans bg-background text-foreground`}
       >
         <ThemeProvider
           attribute="class"
