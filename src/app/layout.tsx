@@ -1,15 +1,24 @@
 import type { Metadata } from "next";
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
 import { ThemeProvider } from "@/components/theme-provider";
 import { PostHogClientProvider } from "@/components/posthog-provider";
-import "../app.css";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
     default: "elhaam.dev | The Thoughtful Engineering Blog",
     template: "%s | elhaam.dev",
   },
-  description: "A thoughtful engineering blog by Elhaam Basheer Chaudhry. Writing about software engineering, architecture, and thoughtful code.",
-  keywords: ["software engineering", "architecture", "programming", "blog", "thoughtful engineering"],
+  description:
+    "A thoughtful engineering blog by Elhaam Basheer Chaudhry. Writing about software engineering, architecture, and thoughtful code.",
+  keywords: [
+    "software engineering",
+    "architecture",
+    "programming",
+    "blog",
+    "thoughtful engineering",
+  ],
   authors: [{ name: "Elhaam Basheer Chaudhry" }],
   creator: "Elhaam Basheer Chaudhry",
   openGraph: {
@@ -53,16 +62,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="min-h-screen flex flex-col antialiased">
+      <body
+        className={`${GeistSans.variable} ${GeistMono.variable} min-h-screen flex flex-col antialiased font-sans`}
+      >
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          <PostHogClientProvider>
-            {children}
-          </PostHogClientProvider>
+          <PostHogClientProvider>{children}</PostHogClientProvider>
         </ThemeProvider>
       </body>
     </html>
