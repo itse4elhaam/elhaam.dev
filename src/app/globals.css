@@ -1,9 +1,12 @@
 @import url(tailwindcss);
 
 @theme {
-  --font-family-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-family-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
-  
+  --font-family-sans:
+    ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", "Noto Color Emoji";
+  --font-family-mono:
+    ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+
   --color-background: oklch(98% 0.01 60);
   --color-foreground: oklch(20% 0.02 60);
   --color-card: oklch(100% 0 0);
@@ -23,7 +26,7 @@
   --color-border: oklch(88% 0.01 60);
   --color-input: oklch(88% 0.01 60);
   --color-ring: oklch(48% 0.08 50);
-  
+
   --radius: 0.75rem;
 }
 
@@ -43,7 +46,7 @@ body {
   --color-card-foreground: oklch(95% 0.01 60);
   --color-popover: oklch(15% 0.02 60);
   --color-popover-foreground: oklch(95% 0.01 60);
-  --color-primary: oklch(62% 0.10 50);
+  --color-primary: oklch(62% 0.1 50);
   --color-primary-foreground: oklch(15% 0.02 60);
   --color-secondary: oklch(20% 0.02 60);
   --color-secondary-foreground: oklch(95% 0.01 60);
@@ -55,7 +58,7 @@ body {
   --color-destructive-foreground: oklch(95% 0.01 60);
   --color-border: oklch(25% 0.02 60);
   --color-input: oklch(25% 0.02 60);
-  --color-ring: oklch(62% 0.10 50);
+  --color-ring: oklch(62% 0.1 50);
 }
 
 @layer utilities {
