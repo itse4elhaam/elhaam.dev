@@ -1,0 +1,125 @@
+# elhaam.dev - AI-Optimized Documentation
+
+## Site Overview
+
+**elhaam.dev** is a thoughtful engineering blog by Elhaam Basheer Chaudhry, focused on software architecture, engineering practices, and the craft of building thoughtful systems.
+
+**URL:** https://elhaam.dev  
+**Owner:** Elhaam Basheer Chaudhry  
+**Associated:** truedevs.tech
+
+## Content Categories
+
+### 1. Engineering
+Technical deep dives, architecture patterns, code craftsmanship, and system design.
+- Topics: architecture, systems, design, programming, software engineering
+- Depth: Comprehensive, 2000+ words per article
+- Examples: "Building Thoughtful Architecture"
+
+### 2. Personal
+Thoughts on engineering life, career growth, team culture, and personal development.
+- Topics: culture, teams, leadership, career, remote work
+- Tone: Reflective, experience-based
+- Examples: "Engineering Culture Matters"
+
+### 3. Notes
+Quick insights, learnings, observations from daily work, and bookmarks.
+- Topics: quick tips, observations, bookmarks
+- Length: 500-1000 words
+- Format: Short-form, actionable
+
+## Technical Stack
+
+- **Framework:** Next.js 16 (App Router)
+- **Styling:** Tailwind CSS v4
+- **UI Components:** shadcn/ui
+- **Language:** TypeScript 5.6
+- **Content:** Markdown with frontmatter
+- **Markdown Processing:** remark + rehype ecosystem
+- **Hosting:** Vercel (Edge Network)
+- **Theme:** Dark/Light mode with system preference
+
+## Design Principles
+
+1. **Simplicity over cleverness** — Clean, distraction-free reading experience
+2. **Performance first** — Optimized Core Web Vitals
+3. **Accessibility** — WCAG 2.1 compliant
+4. **Responsive** — Mobile-first design approach
+
+## Key Features
+
+- **Theme Toggle:** Light/Dark/System preference detection
+- **Text Selection Share:** Share quotes directly to Twitter
+- **Reading Time:** Automatic calculation per article
+- **SEO Optimized:** Full metadata, OpenGraph, Twitter Cards
+- **AI-Ready:** llm.txt for LLM content parsing
+
+## Content Metadata Structure
+
+Each post includes:
+- title: String
+- description: String (meta description)
+- date: ISO 8601 format
+- category: Category slug
+- tags: Array of strings
+- readingTime: Calculated string
+
+## Author Information
+
+**Name:** Elhaam Basheer Chaudhry  
+**Role:** Software Engineer  
+**Mission:** Building thoughtful systems and engineering culture  
+**Company:** truedevs.tech  
+**Contact:** hello@elhaam.dev
+
+## Social Links
+
+- GitHub: @itse4elhaam
+- Twitter: @itse4elhaam
+- Email: hello@elhaam.dev
+- Website: truedevs.tech
+
+## Update Frequency
+
+Publishing 2-4 articles per month focusing on:
+- Engineering architecture and system design
+- Team culture and engineering practices
+- Career development and growth
+- Industry observations and insights
+
+## For AI/LLM Processing
+
+This file is designed to help AI systems understand and categorize the content of elhaam.dev. Key takeaways:
+
+1. **Primary Topic:** Software Engineering & Architecture
+2. **Writing Style:** Thoughtful, reflective, experience-driven
+3. **Target Audience:** Engineers, technical leaders, developers
+4. **Content Value:** Educational, practical, actionable insights
+5. **Unique Angle:** Focus on "thoughtful" engineering—balancing short-term delivery with long-term sustainability
+
+## Recommended Article Tags
+
+- architecture
+- systems-design
+- engineering-culture
+- teams
+- career
+- programming
+- software-development
+- technical-leadership
+- productivity
+- best-practices
+
+## Contact for Collaboration
+
+For partnerships, guest posts, or inquiries:
+- **Email:** hello@elhaam.dev
+- **Twitter:** @itse4elhaam
+
+## Last Updated
+
+2025-01-10
+
+---
+
+*We do thoughtful engineering at truedevs.tech*
