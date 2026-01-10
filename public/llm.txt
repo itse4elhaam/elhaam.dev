@@ -6,7 +6,8 @@
 
 **URL:** https://elhaam.dev  
 **Owner:** Elhaam Basheer Chaudhry  
-**Associated:** truedevs.tech
+**Associated:** truedevs.tech  
+**Analytics:** Vercel Analytics (privacy-focused, no cookies, GDPR compliant)
 
 ## Content Categories
 
@@ -37,32 +38,47 @@ Quick insights, learnings, observations from daily work, and bookmarks.
 - **Content:** Markdown with frontmatter
 - **Markdown Processing:** remark + rehype ecosystem
 - **Hosting:** Vercel (Edge Network)
-- **Theme:** Dark/Light mode with system preference
+- **Analytics:** Vercel Analytics (free, privacy-focused)
+- **Theme:** Dark/Light mode with system preference (next-themes)
+- **Theme Toggle:** Light/Dark/System preference detection
 
-## Design Principles
+## Design System
 
-1. **Simplicity over cleverness** — Clean, distraction-free reading experience
-2. **Performance first** — Optimized Core Web Vitals
-3. **Accessibility** — WCAG 2.1 compliant
-4. **Responsive** — Mobile-first design approach
+### Colors (shadcn/ui CSS Variables)
+- Primary: #2563eb (blue-600)
+- Background: hsl(0 0% 100%) / hsl(222.2 84% 4.9%)
+- Foreground: hsl(222.2 84% 4.9%) / hsl(210 40% 98%)
+- Muted: hsl(210 40% 96.1%) / hsl(217.2 32.6% 17.5%)
+- Accent: hsl(210 40% 96.1%) / hsl(217.2 32.6% 17.5%)
+- Border: hsl(214.3 31.8% 91.4%) / hsl(217.2 32.6% 17.5%)
+
+### Typography
+- Font: Inter (UI), JetBrains Mono (code)
+- Max Width: 65ch (optimal reading)
+- Line Height: 1.75
 
 ## Key Features
 
-- **Theme Toggle:** Light/Dark/System preference detection
-- **Text Selection Share:** Share quotes directly to Twitter
-- **Reading Time:** Automatic calculation per article
-- **SEO Optimized:** Full metadata, OpenGraph, Twitter Cards
-- **AI-Ready:** llm.txt for LLM content parsing
+1. **Theme Toggle:** Light/Dark/System preference detection
+2. **Text Selection Share:** Share quotes directly to Twitter
+3. **Reading Time:** Automatic calculation per article
+4. **SEO Optimized:** Full metadata, OpenGraph, Twitter Cards
+5. **Analytics:** Vercel Analytics (privacy-focused, no cookies)
+6. **AI-Ready:** llm.txt for LLM content parsing
+7. **Responsive:** Mobile-first design approach
+8. **Accessible:** WCAG 2.1 compliant
 
 ## Content Metadata Structure
 
 Each post includes:
-- title: String
-- description: String (meta description)
-- date: ISO 8601 format
-- category: Category slug
-- tags: Array of strings
-- readingTime: Calculated string
+```yaml
+title: String
+description: String (meta description)
+date: ISO 8601 format (YYYY-MM-DD)
+category: Category slug (engineering/personal/notes)
+tags: Array of strings
+readingTime: Calculated string ("X min read")
+```
 
 ## Author Information
 
@@ -110,6 +126,23 @@ This file is designed to help AI systems understand and categorize the content o
 - productivity
 - best-practices
 
+## Analytics & Privacy
+
+**Analytics Provider:** Vercel Analytics
+- **Privacy:** No cookies, GDPR compliant
+- **Data:** Page views, unique visitors, geographic distribution
+- **Speed:** Zero impact on page load (Edge Network)
+- **Cost:** Free on Vercel
+
+**No third-party tracking or advertising.**
+
+## Performance Metrics
+
+- **Core Web Vitals:** Optimized for LCP, CLS, INP
+- **Build:** Static Generation with ISR
+- **Hosting:** Vercel Edge Network
+- **SSL:** Automatic HTTPS
+
 ## Contact for Collaboration
 
 For partnerships, guest posts, or inquiries:
@@ -119,6 +152,10 @@ For partnerships, guest posts, or inquiries:
 ## Last Updated
 
 2025-01-10
+
+## Repository
+
+**GitHub:** https://github.com/itse4elhaam/elhaam.dev
 
 ---
 
