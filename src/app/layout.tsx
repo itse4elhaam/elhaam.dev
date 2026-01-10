@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/theme-provider";
 import { PostHogClientProvider } from "@/components/posthog-provider";
-import "./app.css";
+import "../app.css";
 
 export const metadata: Metadata = {
   title: {

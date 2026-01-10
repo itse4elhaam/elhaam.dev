@@ -7,7 +7,7 @@ import { markdownToHtml } from "@/lib/markdown";
 import { isFeatureEnabled } from "@/lib/posthog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import from "./blog BlogContent-content";
+import BlogContent from "./blog-content";
 
 interface BlogPageProps {
   params: Promise<{

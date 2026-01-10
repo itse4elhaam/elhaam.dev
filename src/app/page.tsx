@@ -27,9 +27,11 @@ export default function Home() {
   // Feature flag check
   useEffect(() => {
     if (posthog) {
-      posthog.isFeatureEnabled("new-homepage-design").then((enabled) => {
+      const checkFlag = async () => {
+        const enabled = await posthog.isFeatureEnabled("new-homepage-design");
         setShowNewDesign(enabled || false);
-      });
+      };
+      checkFlag();
     }
   }, [posthog]);
 
