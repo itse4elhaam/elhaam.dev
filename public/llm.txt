@@ -6,8 +6,23 @@
 
 **URL:** https://elhaam.dev  
 **Owner:** Elhaam Basheer Chaudhry  
-**Associated:** truedevs.tech  
-**Analytics:** Vercel Analytics (privacy-focused, no cookies, GDPR compliant)
+**Associated:** truedevs.tech
+
+## Analytics & Feature Flags
+
+**Analytics Provider:** PostHog
+- **Events Tracked:** Pageviews, article reads, text shares, custom events
+- **Session Recordings:** Enabled for user behavior analysis
+- **Data Retention:** Configurable (default 90 days)
+- **Privacy:** GDPR compliant, can be anonymized
+
+**Feature Flags Implemented:**
+- `new-homepage-design` - A/B test new homepage layouts
+- `author-cta` - Show/hide "Work with me" CTA on blog posts
+
+**Feature Flag SDKs Used:**
+- **Client-side:** posthog-js with React hooks (`useFeatureFlagEnabled`, `usePostHog`)
+- **Server-side:** posthog-node with local evaluation
 
 ## Content Categories
 
@@ -38,9 +53,34 @@ Quick insights, learnings, observations from daily work, and bookmarks.
 - **Content:** Markdown with frontmatter
 - **Markdown Processing:** remark + rehype ecosystem
 - **Hosting:** Vercel (Edge Network)
-- **Analytics:** Vercel Analytics (free, privacy-focused)
+- **Analytics & Feature Flags:** PostHog
 - **Theme:** Dark/Light mode with system preference (next-themes)
-- **Theme Toggle:** Light/Dark/System preference detection
+
+## PostHog Integration Details
+
+### Client-side Setup (posthog-js)
+- Provider: `PostHogClientProvider` wrapper component
+- Config: API key, host, person_profiles, capture_pageview, capture_pageleave
+- React hooks: `usePostHog`, `useFeatureFlagEnabled`, `useActiveFeatureFlags`
+
+### Server-side Setup (posthog-node)
+- Library: `posthog-node` with PostHog class
+- Features: Local evaluation, polling interval 30s
+- Methods: `getAllFlags`, `isFeatureEnabled`, `shutdown()`
+
+### Events Tracked
+1. `$pageview` - Automatic on page load
+2. `text_shared` - When user shares selected text
+3. `article_read` - When user views blog post
+
+### Feature Flag Usage
+```typescript
+// Client-side
+const isEnabled = await posthog.isFeatureEnabled("flag-key");
+
+// Server-side  
+const flags = await client.getAllFlags(distinctId);
+```
 
 ## Design System
 
@@ -57,61 +97,15 @@ Quick insights, learnings, observations from daily work, and bookmarks.
 - Max Width: 65ch (optimal reading)
 - Line Height: 1.75
 
-## Key Features
-
-1. **Theme Toggle:** Light/Dark/System preference detection
-2. **Text Selection Share:** Share quotes directly to Twitter
-3. **Reading Time:** Automatic calculation per article
-4. **SEO Optimized:** Full metadata, OpenGraph, Twitter Cards
-5. **Analytics:** Vercel Analytics (privacy-focused, no cookies)
-6. **AI-Ready:** llm.txt for LLM content parsing
-7. **Responsive:** Mobile-first design approach
-8. **Accessible:** WCAG 2.1 compliant
-
-## Content Metadata Structure
-
-Each post includes:
-```yaml
-title: String
-description: String (meta description)
-date: ISO 8601 format (YYYY-MM-DD)
-category: Category slug (engineering/personal/notes)
-tags: Array of strings
-readingTime: Calculated string ("X min read")
-```
-
-## Author Information
-
-**Name:** Elhaam Basheer Chaudhry  
-**Role:** Software Engineer  
-**Mission:** Building thoughtful systems and engineering culture  
-**Company:** truedevs.tech  
-**Contact:** hello@elhaam.dev
-
-## Social Links
-
-- GitHub: @itse4elhaam
-- Twitter: @itse4elhaam
-- Email: hello@elhaam.dev
-- Website: truedevs.tech
-
-## Update Frequency
-
-Publishing 2-4 articles per month focusing on:
-- Engineering architecture and system design
-- Team culture and engineering practices
-- Career development and growth
-- Industry observations and insights
-
 ## For AI/LLM Processing
 
-This file is designed to help AI systems understand and categorize the content of elhaam.dev. Key takeaways:
+This file helps AI systems understand and categorize elhaam.dev:
 
 1. **Primary Topic:** Software Engineering & Architecture
-2. **Writing Style:** Thoughtful, reflective, experience-driven
-3. **Target Audience:** Engineers, technical leaders, developers
-4. **Content Value:** Educational, practical, actionable insights
-5. **Unique Angle:** Focus on "thoughtful" engineering—balancing short-term delivery with long-term sustainability
+2. **Analytics:** PostHog (events, recordings, flags)
+3. **Feature Flags:** Server + client-side evaluation
+4. **Writing Style:** Thoughtful, reflective, experience-driven
+5. **Target Audience:** Engineers, technical leaders, developers
 
 ## Recommended Article Tags
 
@@ -128,34 +122,38 @@ This file is designed to help AI systems understand and categorize the content o
 
 ## Analytics & Privacy
 
-**Analytics Provider:** Vercel Analytics
-- **Privacy:** No cookies, GDPR compliant
-- **Data:** Page views, unique visitors, geographic distribution
-- **Speed:** Zero impact on page load (Edge Network)
-- **Cost:** Free on Vercel
+**PostHog Free Tier:**
+- 1 million events/month (generous for personal blog)
+- 15,000 session recordings/month
+- Unlimited team members
+- All features included
 
-**No third-party tracking or advertising.**
+**Privacy Features:**
+- GDPR compliant
+- Cookie-less tracking option
+- Data anonymization available
+- No third-party data selling
 
 ## Performance Metrics
 
 - **Core Web Vitals:** Optimized for LCP, CLS, INP
 - **Build:** Static Generation with ISR
 - **Hosting:** Vercel Edge Network
-- **SSL:** Automatic HTTPS
+- **Analytics Impact:** Minimal (~50ms latency)
 
 ## Contact for Collaboration
 
-For partnerships, guest posts, or inquiries:
 - **Email:** hello@elhaam.dev
 - **Twitter:** @itse4elhaam
+- **GitHub:** @itse4elhaam
+
+## Repository
+
+**URL:** https://github.com/itse4elhaam/elhaam.dev
 
 ## Last Updated
 
 2025-01-10
-
-## Repository
-
-**GitHub:** https://github.com/itse4elhaam/elhaam.dev
 
 ---
 

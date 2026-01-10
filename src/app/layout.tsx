@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/theme-provider";
-import { Analytics } from "@vercel/analytics/react";
+import { PostHogClientProvider } from "@/components/posthog-provider";
 import "./app.css";
 
 export const metadata: Metadata = {
@@ -60,8 +60,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
-          <Analytics />
+          <PostHogClientProvider>
+            {children}
+          </PostHogClientProvider>
         </ThemeProvider>
       </body>
     </html>

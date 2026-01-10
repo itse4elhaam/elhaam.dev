@@ -4,8 +4,10 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, Calendar, Clock, Tag } from "lucide-react";
 import { getAllPosts } from "@/lib/blog";
 import { markdownToHtml } from "@/lib/markdown";
+import { isFeatureEnabled } from "@/lib/posthog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import from "./blog BlogContent-content";
 
 interface BlogPageProps {
   params: Promise<{
@@ -57,6 +59,9 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
   }
 
   const htmlContent = await markdownToHtml(post.content);
+
+  // Server-side feature flag check
+  const showAuthorCTA = await isFeatureEnabled("author-cta", "anonymous");
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -112,10 +117,7 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
           </header>
 
           {/* Post Content */}
-          <div
-            className="prose prose-slate prose-lg dark:prose-invert max-w-none"
-            dangerouslySetInnerHTML={{ __html: htmlContent }}
-          />
+          <BlogContent htmlContent={htmlContent} />
 
           {/* Post Footer */}
           <footer className="mt-12 pt-8 border-t border-border">
@@ -130,7 +132,7 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
               ))}
             </div>
 
-            {/* Author Section */}
+            {/* Author Section with Feature Flag */}
             <div className="rounded-xl border bg-card p-6 md:p-8">
               <div className="flex items-start gap-4">
                 <div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center text-primary-foreground text-xl font-bold shrink-0">
@@ -152,6 +154,13 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
                   >
                     We do thoughtful engineering at truedevs.tech →
                   </a>
+                  {showAuthorCTA && (
+                    <div className="mt-4 pt-4 border-t border-border">
+                      <Button variant="outline" size="sm" asChild>
+                        <a href="mailto:hello@elhaam.dev">Work with me →</a>
+                      </Button>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

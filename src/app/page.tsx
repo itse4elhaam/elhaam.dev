@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { Moon, Sun, Github, Twitter, Mail, Rss } from "lucide-react";
 import { useTheme } from "next-themes";
+import { usePostHog } from "posthog-js/react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -16,12 +17,31 @@ import { Badge } from "@/components/ui/badge";
 
 export default function Home() {
   const { setTheme } = useTheme();
+  const posthog = usePostHog();
   const [showSharePopup, setShowSharePopup] = useState(false);
   const [sharePosition, setSharePosition] = useState({ x: 0, y: 0 });
   const [selectedText, setSelectedText] = useState("");
+  const [showNewDesign, setShowNewDesign] = useState(false);
   const selectionRef = useRef<HTMLDivElement>(null);
 
+  // Feature flag check
   useEffect(() => {
+    if (posthog) {
+      posthog.isFeatureEnabled("new-homepage-design").then((enabled) => {
+        setShowNewDesign(enabled || false);
+      });
+    }
+  }, [posthog]);
+
+  useEffect(() => {
+    // Track pageview
+    if (posthog) {
+      posthog.capture("$pageview", {
+        path: "/",
+        title: "Home - elhaam.dev",
+      });
+    }
+
     const handleSelectionChange = () => {
       const selection = window.getSelection();
       if (selection && selection.toString().trim().length > 0) {
@@ -40,10 +60,16 @@ export default function Home() {
 
     document.addEventListener("selectionchange", handleSelectionChange);
     return () => document.removeEventListener("selectionchange", handleSelectionChange);
-  }, []);
+  }, [posthog]);
 
   const handleShare = () => {
-    if (selectedText) {
+    if (selectedText && posthog) {
+      // Track share event
+      posthog.capture("text_shared", {
+        content: selectedText.substring(0, 100),
+        path: "/",
+      });
+
       const url = window.location.href;
       const text = encodeURIComponent(`"${selectedText}" — elhaam.dev`);
       window.open(`https://twitter.com/intent/tweet?text=${text}&url=${encodeURIComponent(url)}`, "_blank");
