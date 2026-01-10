@@ -25,7 +25,7 @@ export function SiteHeader() {
         <div className="flex items-center gap-5">
           <Link
             href="/"
-            className="relative h-14 w-14 overflow-hidden rounded-full ring-2 ring-muted hover:ring-primary transition-all shrink-0"
+            className="relative h-14 w-14 overflow-hidden rounded-full ring-2 ring-muted hover:ring-primary transition-all duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] shrink-0"
           >
             <Image
               src="/dp.jpeg"
@@ -38,7 +38,7 @@ export function SiteHeader() {
           <div className="flex flex-col justify-center">
             <Link
               href="/"
-              className="font-bold text-xl tracking-tight hover:text-primary transition-colors leading-tight"
+              className="font-bold text-xl tracking-tight hover:text-primary transition-colors duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] leading-tight"
             >
               elhaam.dev
             </Link>
@@ -53,7 +53,7 @@ export function SiteHeader() {
             variant="ghost"
             size="icon"
             onClick={toggleTheme}
-            className="rounded-full hover:bg-muted transition-colors w-10 h-10"
+            className="rounded-full hover:bg-muted w-10 h-10"
             aria-label="Toggle theme"
           >
             {theme === "dark" ? (

@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
@@ -133,9 +134,29 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-mono: var(--font-jetbrains-mono-nerd);
   --font-serif: var(--font-serif);
   --font-cursive: var(--font-cursive);
+  
+  --ease-out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --animate-in: fade-in 0.25s var(--ease-out-quad) forwards;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --animate-in: none;
+  }
 }
 
 @layer base {
@@ -144,5 +165,70 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+
+  ::selection {
+    @apply bg-primary/20 text-foreground;
+  }
+}
+
+@layer components {
+  .prose-minimal {
+    @apply prose prose-lg max-w-none dark:prose-invert;
+
+    @apply prose-headings:font-sans prose-headings:font-semibold prose-headings:tracking-tight;
+    @apply prose-p:leading-relaxed;
+
+    @apply prose-a:text-foreground prose-a:underline prose-a:decoration-primary/50 prose-a:underline-offset-4;
+    @apply hover:prose-a:text-primary hover:prose-a:decoration-primary;
+
+    @apply prose-strong:text-foreground prose-strong:font-semibold;
+
+    @apply prose-code:font-mono prose-code:text-primary;
+    @apply prose-code:bg-muted/60 prose-code:rounded-md prose-code:px-1.5 prose-code:py-0.5;
+    @apply prose-code:before:content-none prose-code:after:content-none;
+
+    @apply prose-pre:font-mono;
+    @apply prose-pre:border prose-pre:border-border/60;
+    @apply prose-pre:bg-muted/40 dark:prose-pre:bg-muted/20;
+    @apply prose-pre:rounded-lg;
+    @apply prose-pre:px-4 prose-pre:py-3;
+    @apply prose-pre:leading-relaxed;
+
+    @apply prose-blockquote:border-l-primary;
+    @apply prose-blockquote:bg-muted/30;
+    @apply prose-blockquote:not-italic;
+    @apply prose-blockquote:py-1;
+
+    @apply prose-li:my-1;
+
+    @apply prose-hr:border-border/60;
+  }
+}
+
+@keyframes fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes slide-up {
+  from { transform: translateY(4px); }
+  to { transform: translateY(0); }
+}
+
+::view-transition-old(root) {
+  animation: 90ms cubic-bezier(0.4, 0, 1, 1) both fade-out;
+}
+
+::view-transition-new(root) {
+  animation: 210ms cubic-bezier(0, 0, 0.2, 1) 90ms both fade-in,
+             210ms cubic-bezier(0.4, 0, 0.2, 1) both slide-up;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
   }
 }

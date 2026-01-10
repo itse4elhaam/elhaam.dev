@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Tag } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { getAllPosts } from "@/lib/blog";
 import { markdownToHtml } from "@/lib/markdown";
 import { Button } from "@/components/ui/button";

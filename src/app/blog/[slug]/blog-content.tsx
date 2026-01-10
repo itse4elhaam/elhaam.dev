@@ -25,9 +25,6 @@ export default function BlogContent({ htmlContent }: BlogContentProps) {
   }, [htmlContent, posthog]);
 
   return (
-    <div
-      className="prose prose-slate prose-lg dark:prose-invert max-w-none"
-      dangerouslySetInnerHTML={{ __html: htmlContent }}
-    />
+    <div className="prose-minimal" dangerouslySetInnerHTML={{ __html: htmlContent }} />
   );
 }

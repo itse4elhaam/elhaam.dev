@@ -32,7 +32,7 @@ export async function getServerSideFlags(distinctId: string): Promise<Record<str
   } finally {
     try {
       await client.shutdown();
-    } catch (error) {
+    } catch {
       // Ignore shutdown errors
     }
   }
@@ -55,7 +55,7 @@ export async function isFeatureEnabled(
   } finally {
     try {
       await client.shutdown();
-    } catch (error) {
+    } catch {
       // Ignore shutdown errors
     }
   }
