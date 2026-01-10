@@ -3,11 +3,11 @@
 import { useState, useRef, useEffect } from "react";
 import { usePostHog } from "posthog-js/react";
 
-interface HomeClientProps {
+interface TextSelectionShareProps {
   children: React.ReactNode;
 }
 
-export function HomeClient({ children }: HomeClientProps) {
+export function TextSelectionShare({ children }: TextSelectionShareProps) {
   const posthog = usePostHog();
   const [showSharePopup, setShowSharePopup] = useState(false);
   const [sharePosition, setSharePosition] = useState({ x: 0, y: 0 });

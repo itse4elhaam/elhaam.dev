@@ -28,7 +28,7 @@ The design is **reductionist**. It removes everything that is not the content it
 We utilize **Tailwind CSS v4** with CSS variables.
 
 #### Primary Brand (The "Thoughtful" Accent)
--   **Primary**: `oklch(48% 0.08 50)` (Earthy Gold/Ochre) - *Subtle usage only* (links, active states).
+-   **Primary**: `#ff4d00` (Truedevs Orange) - *Subtle usage only* (links, active states).
 -   **Background**:
     -   Light: `oklch(99% 0.005 60)` (Near white, paper-like).
     -   Dark: `oklch(14% 0.01 60)` (Soft charcoal, not absolute black).

@@ -1,9 +1,32 @@
 import type { Metadata } from "next";
-import { GeistSans } from "geist/font/sans";
-import { GeistMono } from "geist/font/mono";
+import { Geist, Merriweather, Geist_Mono, Caveat } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { PostHogClientProvider } from "@/components/posthog-provider";
+import { SiteHeader } from "@/components/site-header";
+import { SiteFooter } from "@/components/site-footer";
 import "./globals.css";
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+const merriweather = Merriweather({
+  weight: ["300", "400", "700", "900"],
+  style: ["normal", "italic"],
+  subsets: ["latin"],
+  variable: "--font-serif",
+});
+
+const caveat = Caveat({
+  subsets: ["latin"],
+  variable: "--font-cursive",
+});
 
 export const metadata: Metadata = {
   title: {
@@ -18,6 +41,8 @@ export const metadata: Metadata = {
     "programming",
     "blog",
     "thoughtful engineering",
+    "TrueDevs",
+    "Next.js",
   ],
   authors: [{ name: "Elhaam Basheer Chaudhry" }],
   creator: "Elhaam Basheer Chaudhry",
@@ -53,6 +78,7 @@ export const metadata: Metadata = {
     apple: "/apple-touch-icon.png",
   },
   manifest: "/site.webmanifest",
+  metadataBase: new URL("https://elhaam.dev"),
 };
 
 export default function RootLayout({
@@ -63,7 +89,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${GeistSans.variable} ${GeistMono.variable} min-h-screen flex flex-col antialiased font-sans`}
+        className={`${geistSans.variable} ${geistMono.variable} ${merriweather.variable} ${caveat.variable} min-h-screen flex flex-col antialiased font-sans bg-background text-foreground`}
       >
         <ThemeProvider
           attribute="class"
@@ -71,7 +97,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <PostHogClientProvider>{children}</PostHogClientProvider>
+          <PostHogClientProvider>
+            <SiteHeader />
+            {children}
+            <SiteFooter />
+          </PostHogClientProvider>
         </ThemeProvider>
       </body>
     </html>
