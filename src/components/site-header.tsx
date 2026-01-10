@@ -23,7 +23,10 @@ export function SiteHeader() {
     <header className="w-full border-b border-border bg-background/80 backdrop-blur-sm">
       <div className="max-w-4xl mx-auto flex h-24 items-center justify-between px-4 sm:px-6">
         <div className="flex items-center gap-5">
-          <Link href="/" className="relative h-14 w-14 overflow-hidden rounded-full ring-2 ring-muted hover:ring-primary transition-all shrink-0">
+          <Link
+            href="/"
+            className="relative h-14 w-14 overflow-hidden rounded-full ring-2 ring-muted hover:ring-primary transition-all shrink-0"
+          >
             <Image
               src="/dp.jpeg"
               alt="Elhaam Basheer Chaudhry"
@@ -33,10 +36,13 @@ export function SiteHeader() {
             />
           </Link>
           <div className="flex flex-col justify-center">
-            <Link href="/" className="font-bold text-xl tracking-tight hover:text-primary transition-colors leading-tight">
+            <Link
+              href="/"
+              className="font-bold text-xl tracking-tight hover:text-primary transition-colors leading-tight"
+            >
               elhaam.dev
             </Link>
-            <span className="font-cursive text-2xl text-muted-foreground -mt-1 transform -rotate-2 origin-left">
+            <span className="font-cursive text-2xl text-muted-foreground -mt-1 transform -rotate-1 origin-left">
               A thoughtful engineering blog
             </span>
           </div>
