@@ -72,7 +72,6 @@ export function PostList({ posts }: PostListProps) {
                       <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-muted-foreground">
                         {post.title}
                       </h2>
-                      <p className="text-sm text-muted-foreground/60">Written by Elhaam</p>
                     </div>
                     <p className="text-base sm:text-lg text-muted-foreground/70 leading-relaxed max-w-2xl">
                       {post.description}
@@ -88,10 +87,9 @@ export function PostList({ posts }: PostListProps) {
                       <time className="text-sm font-mono text-muted-foreground/80">
                         {post.date} {post.readingTime && `• ${post.readingTime}`}
                       </time>
-                      <h2 className="text-2xl sm:text-3xl font-bold tracking-tight transition-colors">
+                      <h2 className="text-2xl sm:text-3xl font-bold tracking-tight transition-colors group-hover:text-primary">
                         {post.title}
                       </h2>
-                      <p className="text-sm text-muted-foreground/70">Written by Elhaam</p>
                     </div>
                     <p className="text-base sm:text-lg text-muted-foreground leading-relaxed max-w-2xl">
                       {post.description}
