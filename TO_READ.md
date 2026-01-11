@@ -1,0 +1,3 @@
+- https://www.aihero.dev/tips-for-ai-coding-with-ralph-wiggum#7-prioritize-risky-tasks
+- https://x.com/thedankoe/status/2010042119121957316
+- https://leerob.com/beliefs
