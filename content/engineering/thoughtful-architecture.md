@@ -6,8 +6,6 @@ category: "engineering"
 tags: ["architecture", "systems", "design"]
 ---
 
-# Building Thoughtful Architecture
-
 Architecture isn't just about making things work—it's about making decisions that your future self will thank you for.
 
 ## The Cost of Poor Architecture
@@ -32,4 +30,4 @@ interface ThoughtfulSystem {
 
 Thoughtful architecture is about making decisions that balance short-term velocity with long-term sustainability. It's not about getting everything right immediately—it's about creating systems that can evolve gracefully.
 
-*We do thoughtful engineering at [truedevs.tech](https://truedevs.tech)*
+_We do thoughtful engineering at [truedevs.tech](https://truedevs.tech)_

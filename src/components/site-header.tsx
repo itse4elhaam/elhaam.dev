@@ -30,7 +30,10 @@ export function SiteHeader() {
     <header className="w-full bg-background/80 backdrop-blur-sm pt-8 pb-4 transition-all duration-300">
       <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 flex flex-col items-center text-center space-y-4">
         <div className="flex items-center gap-4">
-          <Link href="/" className="relative h-12 w-12 overflow-hidden rounded-full hover:opacity-90 transition-opacity">
+          <Link
+            href="/"
+            className="relative h-12 w-12 overflow-hidden rounded-full hover:opacity-90 transition-opacity"
+          >
             <Image
               src="/dp.jpeg"
               alt="Elhaam"
@@ -41,18 +44,17 @@ export function SiteHeader() {
           </Link>
           <Link
             href="/"
-            className="text-4xl font-bold tracking-wide hover:text-primary transition-colors duration-300"
-            style={{ fontFamily: "'Georgia', 'Times New Roman', serif" }}
+            className="text-4xl font-thin tracking-wide hover:text-primary transition-colors duration-300"
           >
             Elhaam
           </Link>
         </div>
-        
+
         <div className="flex items-center gap-3 relative">
           <span className="font-mono text-sm text-muted-foreground">
             The thoughtful engineering blog
           </span>
-          
+
           <div className="absolute left-full ml-4">
             {mounted && (
               <Button
