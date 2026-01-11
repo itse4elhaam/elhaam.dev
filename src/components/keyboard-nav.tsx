@@ -11,12 +11,6 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 
-const VimLogo = () => (
-  <svg className="h-2.5 w-2.5" viewBox="0 0 544.8 544.8" fill="currentColor">
-    <path d="M0 0v544.8h544.8V0H0zm164.5 72.6h47.7l89.4 173.4V72.6h44.5v210.8h-47.7L209 109.2v174.2h-44.5V72.6zm271.1 210.8h-44.5V72.6h44.5v210.8zM72.6 120.3l44.5-47.7v210.8H72.6V120.3zm0 216.7h399.6v135.2H72.6V337z"/>
-  </svg>
-);
-
 export function KeyboardNav() {
   const router = useRouter();
   const { setTheme, theme } = useTheme();
@@ -80,7 +74,11 @@ export function KeyboardNav() {
   return (
     <>
       <div className="fixed bottom-4 left-4 z-50 hidden md:flex items-center gap-1.5 text-[10px] text-muted-foreground/60 bg-background/60 backdrop-blur-sm px-2 py-1 rounded border border-border/50">
-        <VimLogo />
+        <img 
+          src="https://www.vim.org/images/vimlogo.svg" 
+          alt="Vim" 
+          className="h-2.5 w-2.5"
+        />
         <span>?</span>
       </div>
 
