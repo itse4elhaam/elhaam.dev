@@ -42,16 +42,16 @@ export function PostList({ posts }: PostListProps) {
         {filteredPosts.length > 0 ? (
           filteredPosts.map((post) => (
             <article key={post.slug} className="group">
-              <Link href={`/blog/${post.slug}`} className="block space-y-3 p-4 -mx-4 rounded-lg transition-all duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] hover:bg-muted/30 hover:translate-x-1">
-                <div className="flex items-baseline gap-3">
-                  <time className="text-xs font-mono text-muted-foreground shrink-0">
+              <Link href={`/blog/${post.slug}`} className="block space-y-2 p-4 -mx-4 rounded-xl transition-all duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] hover:bg-muted/40">
+                <div className="flex flex-col gap-1">
+                  <time className="text-sm font-mono text-muted-foreground/80">
                     {post.date}
                   </time>
-                  <h2 className="text-xl font-bold tracking-tight group-hover:text-primary transition-colors">
+                  <h2 className="text-2xl sm:text-3xl font-bold tracking-tight group-hover:text-primary transition-colors">
                     {post.title}
                   </h2>
                 </div>
-                <p className="text-muted-foreground leading-relaxed pl-[calc(5rem+0.75rem)] md:pl-[calc(4ch+0.75rem)] hidden sm:block">
+                <p className="text-base sm:text-lg text-muted-foreground leading-relaxed max-w-2xl">
                   {post.description}
                 </p>
               </Link>

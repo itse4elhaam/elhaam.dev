@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { PostHogClientProvider } from "@/components/posthog-provider";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { WidthProvider } from "@/components/width-provider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -98,11 +99,13 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <PostHogClientProvider>
-            <SiteHeader />
-            <main id="main-content" className="flex-1">
-              {children}
-            </main>
-            <SiteFooter />
+            <WidthProvider>
+              <SiteHeader />
+              <main id="main-content" className="flex-1">
+                {children}
+              </main>
+              <SiteFooter />
+            </WidthProvider>
           </PostHogClientProvider>
         </ThemeProvider>
       </body>
