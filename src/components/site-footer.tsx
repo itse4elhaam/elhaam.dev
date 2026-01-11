@@ -12,6 +12,7 @@ export function SiteFooter() {
             alt="Elhaam Basheer Chaudhry"
             width={80}
             height={80}
+            loading="lazy"
             className="rounded-full border-2 border-border"
           />
           <h3 className="font-bold text-lg">Hi, I'm Elhaam Basheer Chaudhry</h3>

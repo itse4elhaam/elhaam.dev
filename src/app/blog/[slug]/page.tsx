@@ -77,8 +77,36 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
   const previousPost = getPreviousPost(post, posts);
   const nextPost = getNextPost(post, posts);
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    description: post.description,
+    author: {
+      "@type": "Person",
+      name: "Elhaam Basheer Chaudhry",
+      url: "https://elhaam.dev",
+    },
+    datePublished: post.date,
+    dateModified: post.date,
+    publisher: {
+      "@type": "Person",
+      name: "Elhaam Basheer Chaudhry",
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `https://elhaam.dev/blog/${post.slug}`,
+    },
+    image: "https://elhaam.dev/dp.jpeg",
+    keywords: post.tags.join(", "),
+  };
+
   return (
     <FullscreenProvider>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <TextSelectionShare>
         <BlogPageContent
           post={post}
