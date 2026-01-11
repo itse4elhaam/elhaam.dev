@@ -25,7 +25,7 @@ export function SiteFooter() {
 
         <div className="flex items-center gap-6">
           <Link 
-            href="https://github.com/code-yeongyu" 
+            href="https://github.com/itse4elhaam" 
             target="_blank" 
             rel="noopener noreferrer"
             className="text-muted-foreground hover:text-primary transition-colors hover:scale-110 duration-200"
@@ -34,13 +34,13 @@ export function SiteFooter() {
             <span className="sr-only">GitHub</span>
           </Link>
           <Link 
-            href="https://twitter.com/elhaam" 
+            href="https://x.com/standoutcoder" 
             target="_blank" 
             rel="noopener noreferrer"
             className="text-muted-foreground hover:text-primary transition-colors hover:scale-110 duration-200"
           >
             <Twitter className="h-5 w-5" />
-            <span className="sr-only">Twitter</span>
+            <span className="sr-only">X (Twitter)</span>
           </Link>
           <Link 
             href="/rss.xml" 
@@ -50,7 +50,7 @@ export function SiteFooter() {
             <span className="sr-only">RSS</span>
           </Link>
            <Link 
-            href="mailto:elhaam@truedevs.tech" 
+            href="mailto:e4elhaam@gmail.com" 
             className="text-muted-foreground hover:text-primary transition-colors hover:scale-110 duration-200"
           >
             <Mail className="h-5 w-5" />
