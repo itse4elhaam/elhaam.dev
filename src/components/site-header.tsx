@@ -41,7 +41,8 @@ export function SiteHeader() {
           </Link>
           <Link
             href="/"
-            className="font-cursive text-4xl tracking-tight hover:text-primary transition-colors duration-300"
+            className="text-4xl font-bold tracking-wide hover:text-primary transition-colors duration-300"
+            style={{ fontFamily: "'Georgia', 'Times New Roman', serif" }}
           >
             Elhaam
           </Link>
