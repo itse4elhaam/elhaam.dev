@@ -3,67 +3,56 @@
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { Moon, Sun } from "lucide-react";
-import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
+import ToggleTheme from "./toggle-theme";
 
 export function SiteHeader() {
-  const { setTheme, theme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
+  const pathname = usePathname();
 
   React.useEffect(() => {
     setMounted(true);
   }, []);
 
-  const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
-  };
+  if (pathname?.startsWith("/blog/")) {
+    return null;
+  }
 
   return (
-    <header className="w-full border-b border-border bg-background/80 backdrop-blur-sm">
-      <div className="max-w-4xl mx-auto flex h-24 items-center justify-between px-4 sm:px-6">
-        <div className="flex items-center gap-5">
+    <header className="w-full bg-background/80 backdrop-blur-sm pt-8 pb-4 transition-all duration-300">
+      <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 flex flex-col items-center text-center space-y-4">
+        <div className="flex items-center gap-4">
           <Link
             href="/"
-            className="relative h-14 w-14 overflow-hidden rounded-full ring-2 ring-muted hover:ring-primary transition-all shrink-0"
+            className="relative h-12 w-12 overflow-hidden rounded-full hover:opacity-90 transition-opacity"
           >
             <Image
               src="/dp.jpeg"
-              alt="Elhaam Basheer Chaudhry"
+              alt="Elhaam"
               fill
               className="object-cover"
               priority
             />
           </Link>
-          <div className="flex flex-col justify-center">
-            <Link
-              href="/"
-              className="font-bold text-xl tracking-tight hover:text-primary transition-colors leading-tight"
-            >
-              elhaam.dev
-            </Link>
-            <span className="font-cursive text-2xl text-muted-foreground -mt-1 transform -rotate-1 origin-left">
-              A thoughtful engineering blog
-            </span>
-          </div>
+          <Link
+            href="/"
+            className="text-4xl font-thin tracking-wide hover:text-foreground transition-colors duration-300"
+          >
+            Elhaam
+          </Link>
         </div>
 
-        {mounted && (
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={toggleTheme}
-            className="rounded-full hover:bg-muted transition-colors w-10 h-10"
-            aria-label="Toggle theme"
-          >
-            {theme === "dark" ? (
-              <Sun className="h-5 w-5 text-yellow-500 transition-all" />
-            ) : (
-              <Moon className="h-5 w-5 text-slate-700 transition-all" />
-            )}
-            <span className="sr-only">Toggle theme</span>
-          </Button>
-        )}
+        <div className="flex items-center gap-3 relative">
+          <span className="font-mono text-sm text-muted-foreground">
+            The thoughtful engineering blog
+          </span>
+
+          <div className="absolute left-full ml-4">
+            {mounted && <ToggleTheme />}
+          </div>
+        </div>
       </div>
     </header>
   );

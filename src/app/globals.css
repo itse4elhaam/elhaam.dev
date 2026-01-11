@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
@@ -6,33 +7,33 @@
 :root {
   --radius: 0.625rem;
   
-  --background: oklch(0.99 0.005 60);
-  --foreground: oklch(0.25 0.01 60);
+  --background: oklch(0.94 0.025 85);
+  --foreground: oklch(0.25 0.03 55);
   
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.25 0.01 60);
+  --card: oklch(0.96 0.018 85);
+  --card-foreground: oklch(0.25 0.03 55);
   
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.25 0.01 60);
+  --popover: oklch(0.96 0.018 85);
+  --popover-foreground: oklch(0.25 0.03 55);
   
-  --primary: oklch(0.63 0.23 37);
+  --primary: oklch(0.50 0.15 25);
   --primary-foreground: oklch(0.985 0 0);
   
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.90 0.03 85);
+  --secondary-foreground: oklch(0.25 0.03 55);
   
-  --muted: oklch(0.95 0.01 60);
-  --muted-foreground: oklch(0.60 0.01 60);
+  --muted: oklch(0.90 0.03 85);
+  --muted-foreground: oklch(0.45 0.04 55);
   
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  --accent: oklch(0.90 0.03 85);
+  --accent-foreground: oklch(0.25 0.03 55);
   
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.985 0 0);
   
-  --border: oklch(0.92 0 0);
-  --input: oklch(0.92 0 0);
-  --ring: oklch(0.63 0.23 37);
+  --border: oklch(0.85 0.035 85);
+  --input: oklch(0.85 0.035 85);
+  --ring: oklch(0.50 0.15 25);
   
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
@@ -40,36 +41,36 @@
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
   
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar: oklch(0.94 0.025 85);
+  --sidebar-foreground: oklch(0.25 0.03 55);
   --sidebar-primary: oklch(0.205 0 0);
   --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent: oklch(0.90 0.03 85);
   --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-border: oklch(0.85 0.035 85);
   --sidebar-ring: oklch(0.708 0 0);
 }
 
 .dark {
-  --background: oklch(0.14 0.01 60);
-  --foreground: oklch(0.95 0.01 60);
+  --background: oklch(0.14 0.01 45);
+  --foreground: oklch(0.96 0.01 45);
   
-  --card: oklch(0.16 0.01 60);
-  --card-foreground: oklch(0.95 0.01 60);
+  --card: oklch(0.17 0.015 45);
+  --card-foreground: oklch(0.96 0.01 45);
   
-  --popover: oklch(0.16 0.01 60);
-  --popover-foreground: oklch(0.95 0.01 60);
+  --popover: oklch(0.17 0.015 45);
+  --popover-foreground: oklch(0.96 0.01 45);
   
   --primary: oklch(0.63 0.23 37);
   --primary-foreground: oklch(0.985 0 0);
   
-  --secondary: oklch(0.20 0.01 60);
+  --secondary: oklch(0.20 0.01 45);
   --secondary-foreground: oklch(0.985 0 0);
   
-  --muted: oklch(0.20 0.01 60);
-  --muted-foreground: oklch(0.65 0.01 60);
+  --muted: oklch(0.20 0.01 45);
+  --muted-foreground: oklch(0.70 0.02 45);
   
-  --accent: oklch(0.20 0.01 60);
+  --accent: oklch(0.20 0.01 45);
   --accent-foreground: oklch(0.985 0 0);
   
   --destructive: oklch(0.704 0.191 22.216);
@@ -133,16 +134,160 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-mono: var(--font-jetbrains-mono);
   --font-serif: var(--font-serif);
   --font-cursive: var(--font-cursive);
+  
+  --ease-out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --animate-in: fade-in 0.25s var(--ease-out-quad) forwards;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --animate-in: none;
+  }
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+  *:focus-visible {
+    @apply outline-2 outline-offset-2 outline-primary;
+  }
   body {
     @apply bg-background text-foreground;
+  }
+
+  ::selection {
+    @apply bg-primary/20 text-foreground dark:bg-primary/30;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: oklch(0.70 0.04 85);
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: oklch(0.60 0.04 85);
+  }
+  
+  .dark ::-webkit-scrollbar-thumb {
+    background: oklch(0.35 0.02 45);
+  }
+  
+  .dark ::-webkit-scrollbar-thumb:hover {
+    background: oklch(0.45 0.02 45);
+  }
+
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: oklch(0.70 0.04 85) transparent;
+  }
+  
+  .dark {
+    scrollbar-color: oklch(0.35 0.02 45) transparent;
+  }
+}
+
+@layer components {
+  .prose-minimal {
+    @apply prose prose-lg max-w-none dark:prose-invert;
+    @apply prose-p:text-lg md:prose-p:text-xl prose-p:leading-relaxed prose-p:my-6 prose-p:text-foreground/90;
+    @apply prose-headings:font-sans prose-headings:font-semibold prose-headings:tracking-tight prose-headings:text-foreground;
+    
+    @apply prose-a:text-foreground prose-a:no-underline prose-a:pb-0.5 prose-a:transition-all prose-a:duration-300;
+
+    @apply prose-strong:text-foreground prose-strong:font-semibold;
+
+    @apply prose-code:font-mono prose-code:text-foreground;
+    @apply prose-code:bg-muted prose-code:rounded-md prose-code:px-1.5 prose-code:py-0.5;
+    @apply prose-code:before:content-none prose-code:after:content-none;
+
+    @apply prose-pre:font-mono;
+    @apply prose-pre:border prose-pre:border-border/60;
+    @apply prose-pre:bg-muted dark:prose-pre:bg-muted/20;
+    @apply prose-pre:rounded-lg;
+    @apply prose-pre:px-6 prose-pre:py-5;
+    @apply prose-pre:leading-relaxed;
+
+    @apply prose-blockquote:border-l-primary;
+    @apply prose-blockquote:bg-muted/50;
+    @apply prose-blockquote:not-italic;
+    @apply prose-blockquote:py-1;
+
+    @apply prose-li:my-1;
+
+    @apply prose-hr:border-border/60;
+  }
+}
+
+@keyframes fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes slide-up {
+  from { transform: translateY(4px); }
+  to { transform: translateY(0); }
+}
+
+::view-transition-old(root) {
+  animation: 90ms cubic-bezier(0.4, 0, 1, 1) both fade-out;
+}
+
+::view-transition-new(root) {
+  animation: 210ms cubic-bezier(0, 0, 0.2, 1) 90ms both fade-in,
+             210ms cubic-bezier(0.4, 0, 0.2, 1) both slide-up;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+/* External link indicator */
+.prose-minimal a[href^="http"]:not([href*="elhaam.dev"])::after {
+  content: " ↗";
+  font-size: 0.75em;
+  opacity: 0.6;
+}
+
+/* Print styles */
+@media print {
+  header, footer, .scroll-to-top, .toc-sidebar, .keyboard-hint { display: none !important; }
+  .prose-minimal a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+  }
+  body {
+    font-size: 12pt;
+    line-height: 1.5;
+  }
+  .prose-minimal {
+    max-width: 100%;
   }
 }
