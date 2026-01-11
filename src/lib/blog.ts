@@ -52,7 +52,16 @@ export function getAllPosts(): BlogPost[] {
     allPosts.push(...posts);
   }
   
-  return allPosts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  const isProduction = process.env.NODE_ENV === "production";
+  
+  return allPosts
+    .filter((post) => {
+      if (isProduction && post.tags.includes("test")) {
+        return false;
+      }
+      return true;
+    })
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
 function calculateReadingTime(content: string): string {

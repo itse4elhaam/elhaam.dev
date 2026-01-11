@@ -5,8 +5,8 @@ export default function Home() {
   const posts = getAllPosts();
 
   return (
-    <main className="flex-1 max-w-2xl mx-auto w-full px-4 sm:px-6 py-12 md:py-16">
+    <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 py-12 md:py-16 transition-[max-width] duration-300 ease-in-out">
       <PostList posts={posts} />
-    </main>
+    </div>
   );
 }

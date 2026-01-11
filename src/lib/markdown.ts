@@ -1,21 +1,32 @@
-import { remark } from "remark";
-import html from "remark-html";
-import gfm from "remark-gfm";
-import highlight from "rehype-highlight";
-import slug from "rehype-slug";
-import autolinkHeadings from "rehype-autolink-headings";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypePrettyCode from "rehype-pretty-code";
+import rehypeSlug from "rehype-slug";
+import rehypeStringify from "rehype-stringify";
+import remarkGfm from "remark-gfm";
+import remarkParse from "remark-parse";
+import remarkRehype from "remark-rehype";
+import { unified } from "unified";
 
 export async function markdownToHtml(markdown: string): Promise<string> {
-  const result = await remark()
-    .use(gfm)
-    .use(highlight)
-    .use(slug)
-    .use(autolinkHeadings, {
+  const file = await unified()
+    .use(remarkParse)
+    .use(remarkGfm)
+    .use(remarkRehype)
+    .use(rehypeSlug)
+    .use(rehypeAutolinkHeadings, {
       behavior: "wrap",
       properties: { className: ["anchor"] },
     })
-    .use(html)
+    .use(rehypePrettyCode, {
+      theme: {
+        dark: "github-dark",
+        light: "github-light",
+      },
+      defaultLang: "plaintext",
+      keepBackground: false,
+    })
+    .use(rehypeStringify)
     .process(markdown);
-  
-  return result.toString();
+
+  return String(file);
 }
