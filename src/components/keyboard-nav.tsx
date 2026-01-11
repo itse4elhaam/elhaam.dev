@@ -66,10 +66,9 @@ export function KeyboardNav() {
     <>
       <div className="fixed bottom-4 left-4 z-50 hidden md:flex items-center gap-2 text-xs text-muted-foreground bg-background/80 backdrop-blur-sm px-3 py-2 rounded-md border border-border shadow-sm">
         <svg viewBox="0 0 24 24" className="h-4 w-4 fill-primary" xmlns="http://www.w3.org/2000/svg">
-          <path d="M20.8 4.8L19.2 3.2l-7.2 7.2-7.2-7.2L3.2 4.8l7.2 7.2-7.2 7.2 1.6 1.6 7.2-7.2 7.2 7.2 1.6-1.6-7.2-7.2z"/>
-          <path d="M12 2v9m0 2v9"/>
+          <path d="M3 3h8l-1 4h4l-2 7 6-7h-4l1-4h-8z"/>
         </svg>
-        <span className="font-medium">Vim shortcuts enabled • Press ? for help</span>
+        <span className="font-medium">Vim shortcuts available • Press ? for help</span>
       </div>
 
       <Dialog open={showShortcuts} onOpenChange={setShowShortcuts}>
