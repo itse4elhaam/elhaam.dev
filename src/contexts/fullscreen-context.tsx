@@ -13,20 +13,27 @@ const FullscreenContext = React.createContext<FullscreenContextType>({
 });
 
 export function FullscreenProvider({ children }: { children: React.ReactNode }) {
-  const [isFullscreen, setIsFullscreen] = React.useState(() => {
-    if (typeof window !== "undefined") {
-      const stored = localStorage.getItem("fullscreen-mode");
-      return stored === "true";
-    }
-    return false;
-  });
+  const [isFullscreen, setIsFullscreen] = React.useState(false);
 
-  const toggleFullscreen = React.useCallback(() => {
-    setIsFullscreen((prev) => {
-      const newValue = !prev;
-      localStorage.setItem("fullscreen-mode", String(newValue));
-      return newValue;
-    });
+  React.useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    return () => document.removeEventListener("fullscreenchange", handleFullscreenChange);
+  }, []);
+
+  const toggleFullscreen = React.useCallback(async () => {
+    try {
+      if (!document.fullscreenElement) {
+        await document.documentElement.requestFullscreen();
+      } else {
+        await document.exitFullscreen();
+      }
+    } catch (err) {
+      console.error("Fullscreen error:", err);
+    }
   }, []);
 
   React.useEffect(() => {

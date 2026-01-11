@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Maximize2, Minimize2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import BlogContent from "./blog-content";
@@ -39,14 +39,26 @@ export function BlogPageContent({
   nextPost,
   allPosts,
 }: BlogPageContentProps) {
-  const { isFullscreen } = useFullscreen();
+  const { isFullscreen, toggleFullscreen } = useFullscreen();
 
   return (
     <>
-      {!isFullscreen && <ToggleTheme />}
       {!isFullscreen && <ReadingProgress showTimeEstimate={true} readingTime={post.readingTime} />}
-      {!isFullscreen && <TableOfContents />}
+      {!isFullscreen && process.env.NEXT_PUBLIC_ENABLE_TOC === "true" && <TableOfContents />}
       {!isFullscreen && <ScrollToTop />}
+      
+      {isFullscreen && (
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={toggleFullscreen}
+          className="fixed top-4 right-4 z-50 rounded-full hover:bg-muted w-9 h-9 text-muted-foreground hover:text-foreground border border-border/40 bg-background/80 backdrop-blur-sm shadow-sm hidden md:flex items-center justify-center"
+          aria-label="Exit fullscreen mode"
+        >
+          <Minimize2 className="h-4 w-4" />
+        </Button>
+      )}
+      
       <div className="flex-1 w-full">
         <article className="w-full max-w-4xl mx-auto px-4 sm:px-6 py-12 md:py-16 transition-[max-width] duration-300 ease-in-out">
           <Link
@@ -79,10 +91,28 @@ export function BlogPageContent({
                 })}
               </time>
               <span>•</span>
-              <span>{post.readingTime}</span>
-              <span>•</span>
               <span className="capitalize">{post.category}</span>
             </div>
+            
+            {post.readingTime && (
+              <div className="flex items-center gap-2 text-sm text-muted-foreground font-mono">
+                <span>{post.readingTime}</span>
+                {!isFullscreen && (
+                  <>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={toggleFullscreen}
+                      className="rounded-full hover:bg-muted w-7 h-7 text-muted-foreground hover:text-foreground border border-border/40 bg-background/80 backdrop-blur-sm shadow-sm"
+                      aria-label="Toggle fullscreen mode"
+                    >
+                      <Maximize2 className="h-3.5 w-3.5" />
+                    </Button>
+                    <ToggleTheme />
+                  </>
+                )}
+              </div>
+            )}
 
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-foreground leading-tight">
               {post.title}

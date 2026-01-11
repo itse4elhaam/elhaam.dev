@@ -17,10 +17,10 @@ export function KeyboardNav() {
   const { setTheme, theme } = useTheme();
   const [showShortcuts, setShowShortcuts] = React.useState(false);
   const [selectedIndex, setSelectedIndex] = React.useState(-1);
+  const lastScrollTimeRef = React.useRef(0);
 
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Ignore if typing in an input
       if (
         document.activeElement?.tagName === "INPUT" ||
         document.activeElement?.tagName === "TEXTAREA"
@@ -47,11 +47,19 @@ export function KeyboardNav() {
           window.addEventListener("keydown", handleNextKey);
           break;
         case "j":
-          window.scrollBy({ top: 300, behavior: "instant" });
+        case "k": {
+          const now = Date.now();
+          const timeSinceLastScroll = now - lastScrollTimeRef.current;
+          const isRepeating = timeSinceLastScroll < 150;
+          lastScrollTimeRef.current = now;
+          
+          const direction = e.key === "j" ? 1 : -1;
+          window.scrollBy({ 
+            top: 150 * direction, 
+            behavior: isRepeating ? "instant" : "smooth" 
+          });
           break;
-        case "k":
-          window.scrollBy({ top: -300, behavior: "instant" });
-          break;
+        }
         case "G":
           window.scrollTo({
             top: document.body.scrollHeight,
@@ -67,16 +75,17 @@ export function KeyboardNav() {
 
   return (
     <>
-      <div className="fixed bottom-4 left-4 z-50 hidden md:flex items-center gap-2 text-xs text-muted-foreground bg-background/80 backdrop-blur-sm px-3 py-2 rounded-md border border-border shadow-sm">
-        <span className="font-medium">Vim • Press ? for help</span>
+      <div className="fixed bottom-4 left-4 z-50 hidden md:flex items-center gap-1.5 text-[10px] text-muted-foreground/60 bg-background/60 backdrop-blur-sm px-2 py-1 rounded border border-border/50">
+        <img 
+          src="https://www.vim.org/images/vimlogo.svg" 
+          alt="Vim" 
+          className="h-2.5 w-2.5"
+        />
+        <span>?</span>
       </div>
 
       <Dialog open={showShortcuts} onOpenChange={setShowShortcuts}>
-        <DialogContent
-          className="[&>button]:hidden [&_[role=dialog]]:!duration-0 [&_[data-state]]:!duration-0"
-          onAnimationStart={(e) => e.stopPropagation()}
-          onAnimationEnd={(e) => e.stopPropagation()}
-        >
+        <DialogContent className="[&>button]:hidden">
           <DialogHeader>
             <DialogTitle>Keyboard Shortcuts</DialogTitle>
             <DialogDescription>
@@ -120,7 +129,13 @@ export function KeyboardNav() {
                 G
               </kbd>
             </div>
-            <div className="flex justify-between col-span-2">
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Fullscreen</span>
+              <kbd className="px-2 py-0.5 bg-muted rounded text-xs font-mono">
+                f
+              </kbd>
+            </div>
+            <div className="flex justify-between">
               <span className="text-muted-foreground">Show Shortcuts</span>
               <kbd className="px-2 py-0.5 bg-muted rounded text-xs font-mono">
                 ?

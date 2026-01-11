@@ -12,6 +12,7 @@ export function RelatedPosts({ currentPost, allPosts }: RelatedPostsProps) {
   // Find related posts by category or tags
   const related = allPosts
     .filter((post) => post.slug !== currentPost.slug)
+    .filter((post) => !post.tags.includes("coming-soon"))
     .map((post) => {
       let score = 0;
       if (post.category === currentPost.category) score += 2;
