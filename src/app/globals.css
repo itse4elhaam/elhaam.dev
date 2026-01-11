@@ -7,33 +7,33 @@
 :root {
   --radius: 0.625rem;
   
-  --background: oklch(0.99 0.005 60);
-  --foreground: oklch(0.25 0.01 60);
+  --background: oklch(0.985 0.004 50);
+  --foreground: oklch(0.15 0.02 50);
   
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.25 0.01 60);
+  --card-foreground: oklch(0.15 0.02 50);
   
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.25 0.01 60);
+  --popover-foreground: oklch(0.15 0.02 50);
   
-  --primary: oklch(0.63 0.23 37);
+  --primary: oklch(0.58 0.22 35);
   --primary-foreground: oklch(0.985 0 0);
   
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.96 0.008 50);
+  --secondary-foreground: oklch(0.15 0.02 50);
   
-  --muted: oklch(0.95 0.01 60);
-  --muted-foreground: oklch(0.60 0.01 60);
+  --muted: oklch(0.96 0.008 50);
+  --muted-foreground: oklch(0.50 0.04 50);
   
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  --accent: oklch(0.96 0.008 50);
+  --accent-foreground: oklch(0.15 0.02 50);
   
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.985 0 0);
   
-  --border: oklch(0.92 0 0);
-  --input: oklch(0.92 0 0);
-  --ring: oklch(0.63 0.23 37);
+  --border: oklch(0.91 0.01 50);
+  --input: oklch(0.91 0.01 50);
+  --ring: oklch(0.58 0.22 35);
   
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
@@ -41,8 +41,8 @@
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
   
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar: oklch(0.985 0.004 50);
+  --sidebar-foreground: oklch(0.15 0.02 50);
   --sidebar-primary: oklch(0.205 0 0);
   --sidebar-primary-foreground: oklch(0.985 0 0);
   --sidebar-accent: oklch(0.97 0 0);
@@ -186,18 +186,18 @@
     @apply prose-strong:text-foreground prose-strong:font-semibold;
 
     @apply prose-code:font-mono prose-code:text-foreground;
-    @apply prose-code:bg-muted/60 prose-code:rounded-md prose-code:px-1.5 prose-code:py-0.5;
+    @apply prose-code:bg-muted prose-code:rounded-md prose-code:px-1.5 prose-code:py-0.5;
     @apply prose-code:before:content-none prose-code:after:content-none;
 
     @apply prose-pre:font-mono;
     @apply prose-pre:border prose-pre:border-border/60;
-    @apply prose-pre:bg-muted/40 dark:prose-pre:bg-muted/20;
+    @apply prose-pre:bg-muted dark:prose-pre:bg-muted/20;
     @apply prose-pre:rounded-lg;
     @apply prose-pre:px-6 prose-pre:py-5;
     @apply prose-pre:leading-relaxed;
 
     @apply prose-blockquote:border-l-primary;
-    @apply prose-blockquote:bg-muted/30;
+    @apply prose-blockquote:bg-muted/50;
     @apply prose-blockquote:not-italic;
     @apply prose-blockquote:py-1;
 
