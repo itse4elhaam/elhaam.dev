@@ -67,6 +67,9 @@ export const metadata: Metadata = {
     default: "elhaam.dev | The Thoughtful Engineering Blog",
     template: "%s | elhaam.dev",
   },
+  alternates: {
+    canonical: "https://elhaam.dev",
+  },
   description:
     "A thoughtful engineering blog by Elhaam Basheer Chaudhry. Writing about software engineering, architecture, and thoughtful code.",
   keywords: [
@@ -89,10 +92,10 @@ export const metadata: Metadata = {
     description: "A thoughtful engineering blog by Elhaam Basheer Chaudhry",
     images: [
       {
-        url: "/images/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "elhaam.dev",
+        url: "/dp.jpeg",
+        width: 1000,
+        height: 1000,
+        alt: "Elhaam Basheer Chaudhry",
       },
     ],
   },
@@ -100,7 +103,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "elhaam.dev | The Thoughtful Engineering Blog",
     description: "A thoughtful engineering blog by Elhaam Basheer Chaudhry",
-    images: ["/images/og-image.png"],
+    images: ["/dp.jpeg"],
   },
   robots: {
     index: true,
@@ -128,7 +131,9 @@ export default function RootLayout({
         >
           <PostHogClientProvider>
             <SiteHeader />
-            {children}
+            <main id="main-content" className="flex-1">
+              {children}
+            </main>
             <SiteFooter />
           </PostHogClientProvider>
         </ThemeProvider>

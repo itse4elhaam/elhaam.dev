@@ -34,17 +34,30 @@ export async function generateMetadata({ params }: BlogPageProps): Promise<Metad
   return {
     title: post.title,
     description: post.description,
+    alternates: {
+      canonical: `https://elhaam.dev/blog/${post.slug}`,
+    },
     openGraph: {
       title: post.title,
       description: post.description,
+      url: `https://elhaam.dev/blog/${post.slug}`,
       type: "article",
       publishedTime: post.date,
       tags: post.tags,
+      images: [
+        {
+          url: "/dp.jpeg",
+          width: 1000,
+          height: 1000,
+          alt: "Elhaam Basheer Chaudhry",
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.description,
+      images: ["/dp.jpeg"],
     },
   };
 }
@@ -62,8 +75,12 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
 
   return (
     <TextSelectionShare>
-      <main className="flex-1">
+      <div className="flex-1">
         <article className="max-w-2xl mx-auto px-4 sm:px-6 py-12 md:py-16">
+          <Link href="#main-content" className="sr-only focus:not-sr-only focus:underline">
+            Skip to content
+          </Link>
+
           {/* Back Button */}
           <Link href="/" className="inline-block mb-8 no-underline">
             <Button 
@@ -126,7 +143,7 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
              </div>
           </footer>
         </article>
-      </main>
+      </div>
     </TextSelectionShare>
   );
 }
