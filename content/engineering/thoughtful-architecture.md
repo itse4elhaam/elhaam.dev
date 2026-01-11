@@ -3,7 +3,7 @@ title: "Building Thoughtful Architecture"
 description: "How to design systems that stand the test of time while remaining adaptable to change."
 date: "2025-01-10"
 category: "engineering"
-tags: ["architecture", "systems", "design"]
+tags: ["architecture", "systems", "design", "test"]
 ---
 
 Architecture isn't just about making things work—it's about making decisions that your future self will thank you for.

@@ -3,7 +3,7 @@ title: "Engineering Culture Matters"
 description: "Why the environment you create determines the quality of code you ship."
 date: "2025-01-08"
 category: "personal"
-tags: ["culture", "engineering", "teams"]
+tags: ["culture", "engineering", "teams", "test"]
 ---
 
 # Engineering Culture Matters
@@ -36,4 +36,4 @@ In a distributed world, culture requires intentional effort:
 - **Rituals** — Regular sync points that matter
 - **Recognition** — Celebrate wins, big and small
 
-*We do thoughtful engineering at [truedevs.tech](https://truedevs.tech)*
+_We do thoughtful engineering at [truedevs.tech](https://truedevs.tech)_
