@@ -182,7 +182,6 @@
     @apply prose-headings:font-sans prose-headings:font-semibold prose-headings:tracking-tight prose-headings:text-foreground;
     
     @apply prose-a:text-foreground prose-a:no-underline prose-a:pb-0.5 prose-a:transition-all prose-a:duration-300;
-    @apply hover:prose-a:text-primary;
 
     @apply prose-strong:text-foreground prose-strong:font-semibold;
 

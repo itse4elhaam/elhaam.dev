@@ -5,11 +5,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Moon, Sun } from "lucide-react";
-import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
+import ToggleTheme from "./toggle-theme";
 
 export function SiteHeader() {
-  const { setTheme, theme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
   const pathname = usePathname();
 
@@ -17,14 +16,9 @@ export function SiteHeader() {
     setMounted(true);
   }, []);
 
-  // Hide header on blog post pages
   if (pathname?.startsWith("/blog/")) {
     return null;
   }
-
-  const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
-  };
 
   return (
     <header className="w-full bg-background/80 backdrop-blur-sm pt-8 pb-4 transition-all duration-300">
@@ -56,22 +50,7 @@ export function SiteHeader() {
           </span>
 
           <div className="absolute left-full ml-4">
-            {mounted && (
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={toggleTheme}
-                className="rounded-full hover:bg-muted w-8 h-8 text-muted-foreground"
-                aria-label="Toggle theme"
-              >
-                {theme === "dark" ? (
-                  <Sun className="h-4 w-4 text-yellow-500 transition-all" />
-                ) : (
-                  <Moon className="h-4 w-4 text-slate-700 transition-all" />
-                )}
-                <span className="sr-only">Toggle theme</span>
-              </Button>
-            )}
+            {mounted && <ToggleTheme />}
           </div>
         </div>
       </div>

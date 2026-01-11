@@ -47,10 +47,10 @@ export function KeyboardNav() {
           window.addEventListener("keydown", handleNextKey);
           break;
         case "j":
-          window.scrollBy({ top: 100, behavior: "smooth" });
+          window.scrollBy({ top: 300, behavior: "instant" });
           break;
         case "k":
-          window.scrollBy({ top: -100, behavior: "smooth" });
+          window.scrollBy({ top: -300, behavior: "instant" });
           break;
         case "G":
           window.scrollTo({
@@ -68,9 +68,7 @@ export function KeyboardNav() {
   return (
     <>
       <div className="fixed bottom-4 left-4 z-50 hidden md:flex items-center gap-2 text-xs text-muted-foreground bg-background/80 backdrop-blur-sm px-3 py-2 rounded-md border border-border shadow-sm">
-        <span className="font-medium">
-          Vim shortcuts available • Press ? for help
-        </span>
+        <span className="font-medium">Vim • Press ? for help</span>
       </div>
 
       <Dialog open={showShortcuts} onOpenChange={setShowShortcuts}>
