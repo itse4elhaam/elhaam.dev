@@ -3,18 +3,24 @@
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
-import { WidthToggle } from "@/components/width-toggle";
 
 export function SiteHeader() {
   const { setTheme, theme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
+  const pathname = usePathname();
 
   React.useEffect(() => {
     setMounted(true);
   }, []);
+
+  // Hide header on blog post pages
+  if (pathname?.startsWith("/blog/")) {
+    return null;
+  }
 
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark");
@@ -22,21 +28,31 @@ export function SiteHeader() {
 
   return (
     <header className="w-full bg-background/80 backdrop-blur-sm pt-8 pb-4 transition-all duration-300">
-      <div className="w-full max-w-[var(--site-width)] mx-auto px-4 sm:px-6 flex flex-col items-center text-center space-y-2 transition-[max-width] duration-300 ease-in-out">
-        <Link
-          href="/"
-          className="font-bold text-2xl md:text-3xl tracking-tight hover:text-primary transition-colors duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)]"
-        >
-          Elhaam Basheer Chaudhry
-        </Link>
+      <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 flex flex-col items-center text-center space-y-4">
+        <div className="flex items-center gap-4">
+          <Link href="/" className="relative h-12 w-12 overflow-hidden rounded-full hover:opacity-90 transition-opacity">
+            <Image
+              src="/dp.jpeg"
+              alt="Elhaam"
+              fill
+              className="object-cover"
+              priority
+            />
+          </Link>
+          <Link
+            href="/"
+            className="font-cursive text-4xl tracking-tight hover:text-primary transition-colors duration-300"
+          >
+            Elhaam
+          </Link>
+        </div>
         
         <div className="flex items-center gap-3 relative">
-          <span className="font-cursive text-2xl text-muted-foreground transform -rotate-[0.5deg]">
-            A thoughtful engineering blog
+          <span className="font-mono text-sm text-muted-foreground">
+            The thoughtful engineering blog
           </span>
           
-          <div className="absolute left-full ml-4 flex items-center gap-1">
-            <WidthToggle />
+          <div className="absolute left-full ml-4">
             {mounted && (
               <Button
                 variant="ghost"

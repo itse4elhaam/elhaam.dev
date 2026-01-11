@@ -40,23 +40,52 @@ export function PostList({ posts }: PostListProps) {
 
       <div className="space-y-12">
         {filteredPosts.length > 0 ? (
-          filteredPosts.map((post) => (
-            <article key={post.slug} className="group">
-              <Link href={`/blog/${post.slug}`} className="block space-y-2 p-4 -mx-4 rounded-xl transition-all duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] hover:bg-muted/40">
-                <div className="flex flex-col gap-1">
-                  <time className="text-sm font-mono text-muted-foreground/80">
-                    {post.date}
-                  </time>
-                  <h2 className="text-2xl sm:text-3xl font-bold tracking-tight group-hover:text-primary transition-colors">
-                    {post.title}
-                  </h2>
-                </div>
-                <p className="text-base sm:text-lg text-muted-foreground leading-relaxed max-w-2xl">
-                  {post.description}
-                </p>
-              </Link>
-            </article>
-          ))
+          filteredPosts.map((post) => {
+            const isComingSoon = post.tags.includes("coming-soon");
+            
+            return (
+              <article key={post.slug} className="group">
+                {isComingSoon ? (
+                  <div className="block space-y-2 p-4 -mx-4 rounded-xl opacity-60 cursor-not-allowed">
+                    <div className="flex flex-col gap-1">
+                      <div className="flex items-center gap-2">
+                        <time className="text-sm font-mono text-muted-foreground/80">
+                          {post.date} {post.readingTime && `• ${post.readingTime}`}
+                        </time>
+                        <span className="text-xs font-medium px-2 py-0.5 bg-muted/50 text-muted-foreground rounded-md border border-border">
+                          Coming Soon
+                        </span>
+                      </div>
+                      <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-muted-foreground">
+                        {post.title}
+                      </h2>
+                    </div>
+                    <p className="text-base sm:text-lg text-muted-foreground/70 leading-relaxed max-w-2xl">
+                      {post.description}
+                    </p>
+                  </div>
+                ) : (
+                  <Link 
+                    href={`/blog/${post.slug}`} 
+                    prefetch={true}
+                    className="block space-y-2 p-4 -mx-4 rounded-xl transition-all duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] hover:bg-muted/40"
+                  >
+                    <div className="flex flex-col gap-1">
+                      <time className="text-sm font-mono text-muted-foreground/80">
+                        {post.date} {post.readingTime && `• ${post.readingTime}`}
+                      </time>
+                      <h2 className="text-2xl sm:text-3xl font-bold tracking-tight transition-colors">
+                        {post.title}
+                      </h2>
+                    </div>
+                    <p className="text-base sm:text-lg text-muted-foreground leading-relaxed max-w-2xl">
+                      {post.description}
+                    </p>
+                  </Link>
+                )}
+              </article>
+            );
+          })
         ) : (
           <p className="text-muted-foreground py-8 text-center">
             No posts found for "{searchQuery}".

@@ -8,6 +8,10 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import BlogContent from "./blog-content";
 import { TextSelectionShare } from "@/components/text-selection-share";
+import { ReadingProgress } from "@/components/reading-progress";
+import { TableOfContents } from "@/components/table-of-contents";
+import { ScrollToTop } from "@/components/scroll-to-top";
+import { RelatedPosts } from "@/components/related-posts";
 
 interface BlogPageProps {
   params: Promise<{
@@ -75,8 +79,11 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
 
   return (
     <TextSelectionShare>
+      <ReadingProgress />
+      <TableOfContents />
+      <ScrollToTop />
       <div className="flex-1 w-full">
-        <article className="w-full max-w-[var(--site-width)] mx-auto px-4 sm:px-6 py-12 md:py-16 transition-[max-width] duration-300 ease-in-out">
+        <article className="w-full max-w-4xl mx-auto px-4 sm:px-6 py-12 md:py-16 transition-[max-width] duration-300 ease-in-out">
           <Link href="#main-content" className="sr-only focus:not-sr-only focus:underline">
             Skip to content
           </Link>
@@ -133,6 +140,9 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
           <div className="font-serif">
              <BlogContent htmlContent={htmlContent} />
           </div>
+
+          {/* Related Posts */}
+          <RelatedPosts currentPost={post} allPosts={posts} />
 
           {/* Post Footer */}
           <footer className="mt-16 pt-8 border-t border-border">

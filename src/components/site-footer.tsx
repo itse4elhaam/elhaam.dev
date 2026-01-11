@@ -4,7 +4,7 @@ import { Github, Twitter, Rss, Mail } from "lucide-react";
 export function SiteFooter() {
   return (
     <footer className="border-t border-border bg-background py-12 mt-auto">
-      <div className="w-full max-w-[var(--site-width)] mx-auto px-4 sm:px-6 flex flex-col items-center text-center space-y-6 transition-[max-width] duration-300 ease-in-out">
+      <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 flex flex-col items-center text-center space-y-6 transition-[max-width] duration-300 ease-in-out">
         
         <div className="space-y-2">
           <h3 className="font-bold text-lg">Elhaam Basheer Chaudhry</h3>
