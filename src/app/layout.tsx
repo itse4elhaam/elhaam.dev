@@ -33,7 +33,7 @@ const caveat = Caveat({
 
 export const metadata: Metadata = {
   title: {
-    default: "elhaam.dev | The Thoughtful Engineering Blog",
+    default: "The Thoughtful Engineering Blog",
     template: "%s | elhaam.dev",
   },
   icons: {
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://elhaam.dev",
     types: {
-      'application/rss+xml': '/rss.xml',
+      "application/rss+xml": "/rss.xml",
     },
   },
   description:

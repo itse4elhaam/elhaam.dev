@@ -193,7 +193,7 @@
     @apply prose-pre:border prose-pre:border-border/60;
     @apply prose-pre:bg-muted/40 dark:prose-pre:bg-muted/20;
     @apply prose-pre:rounded-lg;
-    @apply prose-pre:px-4 prose-pre:py-3;
+    @apply prose-pre:px-6 prose-pre:py-5;
     @apply prose-pre:leading-relaxed;
 
     @apply prose-blockquote:border-l-primary;
