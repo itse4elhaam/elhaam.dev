@@ -53,7 +53,10 @@ export function KeyboardNav() {
           window.scrollBy({ top: -100, behavior: "smooth" });
           break;
         case "G":
-          window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+          window.scrollTo({
+            top: document.body.scrollHeight,
+            behavior: "smooth",
+          });
           break;
       }
     };
@@ -65,16 +68,17 @@ export function KeyboardNav() {
   return (
     <>
       <div className="fixed bottom-4 left-4 z-50 hidden md:flex items-center gap-2 text-xs text-muted-foreground bg-background/80 backdrop-blur-sm px-3 py-2 rounded-md border border-border shadow-sm">
-        <svg viewBox="0 0 24 24" className="h-4 w-4 fill-primary" xmlns="http://www.w3.org/2000/svg">
-          <path d="M3 3h8l-1 4h4l-2 7 6-7h-4l1-4h-8z"/>
-        </svg>
-        <span className="font-medium">Vim shortcuts available • Press ? for help</span>
+        <span className="font-medium">
+          Vim shortcuts available • Press ? for help
+        </span>
       </div>
 
       <Dialog open={showShortcuts} onOpenChange={setShowShortcuts}>
-        <DialogContent className="[&>button]:hidden [&_[role=dialog]]:!duration-0 [&_[data-state]]:!duration-0"
+        <DialogContent
+          className="[&>button]:hidden [&_[role=dialog]]:!duration-0 [&_[data-state]]:!duration-0"
           onAnimationStart={(e) => e.stopPropagation()}
-          onAnimationEnd={(e) => e.stopPropagation()}>
+          onAnimationEnd={(e) => e.stopPropagation()}
+        >
           <DialogHeader>
             <DialogTitle>Keyboard Shortcuts</DialogTitle>
             <DialogDescription>
@@ -84,31 +88,45 @@ export function KeyboardNav() {
           <div className="grid grid-cols-2 gap-4 py-4">
             <div className="flex justify-between">
               <span className="text-muted-foreground">Toggle Theme</span>
-              <kbd className="px-2 py-0.5 bg-muted rounded text-xs font-mono">t</kbd>
+              <kbd className="px-2 py-0.5 bg-muted rounded text-xs font-mono">
+                t
+              </kbd>
             </div>
             <div className="flex justify-between">
               <span className="text-muted-foreground">Go Home</span>
-              <kbd className="px-2 py-0.5 bg-muted rounded text-xs font-mono">g h</kbd>
+              <kbd className="px-2 py-0.5 bg-muted rounded text-xs font-mono">
+                g h
+              </kbd>
             </div>
             <div className="flex justify-between">
               <span className="text-muted-foreground">Scroll Down</span>
-              <kbd className="px-2 py-0.5 bg-muted rounded text-xs font-mono">j</kbd>
+              <kbd className="px-2 py-0.5 bg-muted rounded text-xs font-mono">
+                j
+              </kbd>
             </div>
             <div className="flex justify-between">
               <span className="text-muted-foreground">Scroll Up</span>
-              <kbd className="px-2 py-0.5 bg-muted rounded text-xs font-mono">k</kbd>
+              <kbd className="px-2 py-0.5 bg-muted rounded text-xs font-mono">
+                k
+              </kbd>
             </div>
             <div className="flex justify-between">
               <span className="text-muted-foreground">Top of Page</span>
-              <kbd className="px-2 py-0.5 bg-muted rounded text-xs font-mono">g g</kbd>
+              <kbd className="px-2 py-0.5 bg-muted rounded text-xs font-mono">
+                g g
+              </kbd>
             </div>
             <div className="flex justify-between">
               <span className="text-muted-foreground">Bottom of Page</span>
-              <kbd className="px-2 py-0.5 bg-muted rounded text-xs font-mono">G</kbd>
+              <kbd className="px-2 py-0.5 bg-muted rounded text-xs font-mono">
+                G
+              </kbd>
             </div>
             <div className="flex justify-between col-span-2">
               <span className="text-muted-foreground">Show Shortcuts</span>
-              <kbd className="px-2 py-0.5 bg-muted rounded text-xs font-mono">?</kbd>
+              <kbd className="px-2 py-0.5 bg-muted rounded text-xs font-mono">
+                ?
+              </kbd>
             </div>
           </div>
         </DialogContent>
