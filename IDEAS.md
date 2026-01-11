@@ -1,0 +1,3 @@
+- Why I started writing - something that AI hasn't automated yet - lock in
+- systems for AI not for humans - death of interfaces
+- Thoughtful and defensive engineering
