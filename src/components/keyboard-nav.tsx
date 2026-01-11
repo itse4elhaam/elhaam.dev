@@ -75,7 +75,7 @@ export function KeyboardNav() {
     <>
       <div className="fixed bottom-4 left-4 z-50 hidden md:flex items-center gap-1.5 text-[10px] text-muted-foreground/60 bg-background/60 backdrop-blur-sm px-2 py-1 rounded border border-border/50">
         <img 
-          src="https://www.vim.org/images/vimlogo.svg" 
+          src="/vimlogo.svg" 
           alt="Vim" 
           className="h-2.5 w-2.5"
         />

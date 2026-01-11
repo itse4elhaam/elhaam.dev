@@ -9,6 +9,7 @@ if (typeof window !== "undefined") {
     person_profiles: "identified_only",
     capture_pageview: true,
     capture_pageleave: true,
+    disable_surveys: true,
     bootstrap: typeof window !== "undefined" && window.POSTHOG_BOOTSTRAP ? window.POSTHOG_BOOTSTRAP : undefined,
   });
 }

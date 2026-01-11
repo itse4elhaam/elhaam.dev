@@ -10,6 +10,8 @@ import "./globals.css";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
+  preload: true,
 });
 
 const jetbrainsMono = JetBrains_Mono({
@@ -17,6 +19,7 @@ const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   display: "swap",
   weight: ["400", "500", "700"],
+  preload: true,
 });
 
 const merriweather = Merriweather({
@@ -24,11 +27,15 @@ const merriweather = Merriweather({
   style: ["normal", "italic"],
   subsets: ["latin"],
   variable: "--font-serif",
+  display: "swap",
+  preload: true,
 });
 
 const caveat = Caveat({
   subsets: ["latin"],
   variable: "--font-cursive",
+  display: "swap",
+  preload: false,
 });
 
 export const metadata: Metadata = {
