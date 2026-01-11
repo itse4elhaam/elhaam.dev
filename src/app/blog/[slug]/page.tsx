@@ -120,7 +120,8 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
               {post.title}
             </h1>
             
-            {/* Tags */}
+            <p className="text-base text-muted-foreground">Written by Elhaam</p>
+            
             {post.tags.length > 0 && (
               <div className="flex flex-wrap gap-2 pt-2">
                 {post.tags.map((tag) => (

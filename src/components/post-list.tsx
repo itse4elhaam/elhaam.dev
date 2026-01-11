@@ -59,6 +59,7 @@ export function PostList({ posts }: PostListProps) {
                       <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-muted-foreground">
                         {post.title}
                       </h2>
+                      <p className="text-sm text-muted-foreground/60">Written by Elhaam</p>
                     </div>
                     <p className="text-base sm:text-lg text-muted-foreground/70 leading-relaxed max-w-2xl">
                       {post.description}
@@ -77,6 +78,7 @@ export function PostList({ posts }: PostListProps) {
                       <h2 className="text-2xl sm:text-3xl font-bold tracking-tight transition-colors">
                         {post.title}
                       </h2>
+                      <p className="text-sm text-muted-foreground/70">Written by Elhaam</p>
                     </div>
                     <p className="text-base sm:text-lg text-muted-foreground leading-relaxed max-w-2xl">
                       {post.description}
