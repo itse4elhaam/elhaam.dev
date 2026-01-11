@@ -2,28 +2,58 @@
 
 import * as React from "react";
 
-export function ReadingProgress() {
+interface ReadingProgressProps {
+  showTimeEstimate?: boolean;
+  readingTime?: string;
+}
+
+export function ReadingProgress({ showTimeEstimate = true, readingTime }: ReadingProgressProps) {
   const [progress, setProgress] = React.useState(0);
+  const [timeRemaining, setTimeRemaining] = React.useState("");
 
   React.useEffect(() => {
     const updateProgress = () => {
-      const currentProgress = window.scrollY;
-      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-      if (scrollHeight) {
-        setProgress(Number((currentProgress / scrollHeight).toFixed(2)) * 100);
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = (scrollTop / docHeight) * 100;
+      setProgress(Math.min(scrollPercent, 100));
+
+      if (showTimeEstimate && readingTime) {
+        const totalMinutes = parseInt(readingTime.match(/\d+/)?.[0] || "5");
+        const remainingMinutes = Math.ceil(totalMinutes * (1 - scrollPercent / 100));
+        
+        if (remainingMinutes > 0) {
+          setTimeRemaining(`${remainingMinutes} min left`);
+        } else {
+          setTimeRemaining("Finished");
+        }
       }
     };
 
     window.addEventListener("scroll", updateProgress);
-    return () => window.removeEventListener("scroll", updateProgress);
-  }, []);
+    updateProgress();
 
-  if (progress === 0) return null;
+    return () => window.removeEventListener("scroll", updateProgress);
+  }, [showTimeEstimate, readingTime]);
 
   return (
-    <div
-      className="fixed top-0 left-0 h-1 bg-primary z-50 transition-all duration-150 ease-out"
-      style={{ width: `${progress}%` }}
-    />
+    <>
+      <div className="fixed top-0 left-0 right-0 z-50 h-1 bg-muted">
+        <div
+          className="h-full bg-primary transition-all duration-150 ease-out"
+          style={{ width: `${progress}%` }}
+        />
+      </div>
+      
+      {showTimeEstimate && timeRemaining && (
+        <div className="fixed top-4 right-4 z-50 hidden md:block">
+          <div className="bg-background/95 backdrop-blur-sm border border-border rounded-lg px-3 py-1.5 shadow-sm">
+            <p className="text-xs font-mono text-muted-foreground">
+              {timeRemaining}
+            </p>
+          </div>
+        </div>
+      )}
+    </>
   );
 }

@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { getAllPosts } from "@/lib/blog";
 import { markdownToHtml } from "@/lib/markdown";
+import { getPreviousPost, getNextPost } from "@/lib/post-navigation";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import BlogContent from "./blog-content";
@@ -12,6 +13,7 @@ import { ReadingProgress } from "@/components/reading-progress";
 import { TableOfContents } from "@/components/table-of-contents";
 import { ScrollToTop } from "@/components/scroll-to-top";
 import { RelatedPosts } from "@/components/related-posts";
+import { PostNavigation } from "@/components/post-navigation";
 
 interface BlogPageProps {
   params: Promise<{
@@ -21,9 +23,11 @@ interface BlogPageProps {
 
 export async function generateStaticParams() {
   const posts = getAllPosts();
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
+  return posts
+    .filter((post) => !post.tags.includes("coming-soon"))
+    .map((post) => ({
+      slug: post.slug,
+    }));
 }
 
 export async function generateMetadata({ params }: BlogPageProps): Promise<Metadata> {
@@ -71,15 +75,17 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
   const posts = getAllPosts();
   const post = posts.find((p) => p.slug === slug);
 
-  if (!post) {
+  if (!post || post.tags.includes("coming-soon")) {
     notFound();
   }
 
   const htmlContent = await markdownToHtml(post.content);
+  const previousPost = getPreviousPost(post, posts);
+  const nextPost = getNextPost(post, posts);
 
   return (
     <TextSelectionShare>
-      <ReadingProgress />
+      <ReadingProgress showTimeEstimate={true} readingTime={post.readingTime} />
       <TableOfContents />
       <ScrollToTop />
       <div className="flex-1 w-full">
@@ -145,15 +151,16 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
           {/* Related Posts */}
           <RelatedPosts currentPost={post} allPosts={posts} />
 
-          {/* Post Footer */}
-          <footer className="mt-16 pt-8 border-t border-border">
-             <div className="flex justify-between items-center">
-                <Link href="/" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
-                  ← Read more posts
-                </Link>
-             </div>
-          </footer>
+          <PostNavigation previousPost={previousPost} nextPost={nextPost} />
         </article>
+
+        <footer className="w-full max-w-4xl mx-auto px-4 sm:px-6 pb-12">
+          <div className="pt-8 border-t border-border">
+            <Link href="/" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+              ← Read more posts
+            </Link>
+          </div>
+        </footer>
       </div>
     </TextSelectionShare>
   );

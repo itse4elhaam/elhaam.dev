@@ -32,7 +32,7 @@ export function RelatedPosts({ currentPost, allPosts }: RelatedPostsProps) {
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {related.map((post) => (
           <Link key={post.slug} href={`/blog/${post.slug}`} className="no-underline">
-            <Card className="h-full hover:border-primary/50 transition-colors">
+                <Card className="h-full hover:border-foreground/20 transition-colors">
               <CardHeader>
                 <div className="flex items-center justify-between mb-2">
                    <Badge variant="outline" className="text-xs font-mono">{post.category}</Badge>

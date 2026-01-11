@@ -44,7 +44,7 @@ export function SiteHeader() {
           </Link>
           <Link
             href="/"
-            className="text-4xl font-thin tracking-wide hover:text-primary transition-colors duration-300"
+            className="text-4xl font-thin tracking-wide hover:text-foreground transition-colors duration-300"
           >
             Elhaam
           </Link>

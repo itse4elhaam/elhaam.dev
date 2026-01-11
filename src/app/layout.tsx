@@ -36,6 +36,10 @@ export const metadata: Metadata = {
     default: "elhaam.dev | The Thoughtful Engineering Blog",
     template: "%s | elhaam.dev",
   },
+  icons: {
+    icon: "/dp.jpeg",
+    apple: "/dp.jpeg",
+  },
   alternates: {
     canonical: "https://elhaam.dev",
     types: {

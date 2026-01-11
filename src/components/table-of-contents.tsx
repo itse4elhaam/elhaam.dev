@@ -45,7 +45,7 @@ export function TableOfContents() {
     <div className="fixed left-0 top-1/2 -translate-y-1/2 z-40 group toc-sidebar hidden xl:block">
       {/* Tab visible when closed */}
       <div className="absolute left-0 top-1/2 -translate-y-1/2 w-8 h-32 bg-background/80 backdrop-blur-md border-y border-r border-border rounded-r-xl flex items-center justify-center cursor-pointer transition-transform duration-300 group-hover:-translate-x-full shadow-sm">
-        <ChevronRight className="h-4 w-4 text-muted-foreground" />
+        <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-foreground transition-colors" />
       </div>
 
       {/* Content panel */}
@@ -59,11 +59,11 @@ export function TableOfContents() {
               key={heading.id}
               href={`#${heading.id}`}
               className={cn(
-                "block text-sm py-1 transition-colors border-l-2 pl-3",
-                heading.level === 3 && "ml-4",
+                "block text-sm py-1.5 px-3 -ml-3 rounded-md transition-all duration-200 border-l-2",
+                heading.level === 3 && "ml-1",
                 activeId === heading.id
-                  ? "border-primary text-primary font-medium"
-                  : "border-transparent text-muted-foreground hover:text-foreground hover:border-border"
+                  ? "border-primary text-primary font-semibold bg-primary/10"
+                  : "border-transparent text-muted-foreground hover:text-foreground hover:bg-muted/50 hover:border-muted-foreground/30"
               )}
               onClick={(e) => {
                 e.preventDefault();

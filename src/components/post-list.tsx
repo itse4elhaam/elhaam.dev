@@ -13,14 +13,27 @@ export function PostList({ posts }: PostListProps) {
   const [searchQuery, setSearchQuery] = useState("");
 
   const filteredPosts = useMemo(() => {
-    if (!searchQuery) return posts;
-    const lowerQuery = searchQuery.toLowerCase();
-    return posts.filter((post) => {
-      return (
-        post.title.toLowerCase().includes(lowerQuery) ||
-        post.description.toLowerCase().includes(lowerQuery) ||
-        post.content.toLowerCase().includes(lowerQuery)
-      );
+    let postsToFilter = posts;
+    
+    if (searchQuery) {
+      const lowerQuery = searchQuery.toLowerCase();
+      postsToFilter = posts.filter((post) => {
+        return (
+          post.title.toLowerCase().includes(lowerQuery) ||
+          post.description.toLowerCase().includes(lowerQuery) ||
+          post.content.toLowerCase().includes(lowerQuery)
+        );
+      });
+    }
+
+    return postsToFilter.sort((a, b) => {
+      const aIsComingSoon = a.tags.includes("coming-soon");
+      const bIsComingSoon = b.tags.includes("coming-soon");
+      
+      if (aIsComingSoon && !bIsComingSoon) return 1;
+      if (!aIsComingSoon && bIsComingSoon) return -1;
+      
+      return 0;
     });
   }, [posts, searchQuery]);
 

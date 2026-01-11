@@ -28,7 +28,7 @@ export function SiteFooter() {
             href="https://github.com/itse4elhaam" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="text-muted-foreground hover:text-primary transition-colors hover:scale-110 duration-200"
+              className="text-muted-foreground hover:text-foreground transition-colors hover:scale-110 duration-200"
           >
             <Github className="h-5 w-5" />
             <span className="sr-only">GitHub</span>
@@ -37,21 +37,21 @@ export function SiteFooter() {
             href="https://x.com/standoutcoder" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="text-muted-foreground hover:text-primary transition-colors hover:scale-110 duration-200"
+              className="text-muted-foreground hover:text-foreground transition-colors hover:scale-110 duration-200"
           >
             <Twitter className="h-5 w-5" />
             <span className="sr-only">X (Twitter)</span>
           </Link>
           <Link 
             href="/rss.xml" 
-            className="text-muted-foreground hover:text-primary transition-colors hover:scale-110 duration-200"
+              className="text-muted-foreground hover:text-foreground transition-colors hover:scale-110 duration-200"
           >
             <Rss className="h-5 w-5" />
             <span className="sr-only">RSS</span>
           </Link>
            <Link 
             href="mailto:e4elhaam@gmail.com" 
-            className="text-muted-foreground hover:text-primary transition-colors hover:scale-110 duration-200"
+              className="text-muted-foreground hover:text-foreground transition-colors hover:scale-110 duration-200"
           >
             <Mail className="h-5 w-5" />
             <span className="sr-only">Email</span>
