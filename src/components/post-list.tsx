@@ -30,7 +30,7 @@ export function PostList({ posts }: PostListProps) {
         <Search className="absolute left-0 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
         <input
           type="text"
-          placeholder="Search posts..."
+          placeholder="Search"
           className="w-full bg-transparent py-2 pl-8 text-lg placeholder:text-muted-foreground/50 focus:outline-none focus:placeholder:text-muted-foreground/30 transition-all"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
