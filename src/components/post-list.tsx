@@ -14,7 +14,7 @@ export function PostList({ posts }: PostListProps) {
 
   const filteredPosts = useMemo(() => {
     let postsToFilter = posts;
-    
+
     if (searchQuery) {
       const lowerQuery = searchQuery.toLowerCase();
       postsToFilter = posts.filter((post) => {
@@ -29,10 +29,10 @@ export function PostList({ posts }: PostListProps) {
     return postsToFilter.sort((a, b) => {
       const aIsComingSoon = a.tags.includes("coming-soon");
       const bIsComingSoon = b.tags.includes("coming-soon");
-      
+
       if (aIsComingSoon && !bIsComingSoon) return 1;
       if (!aIsComingSoon && bIsComingSoon) return -1;
-      
+
       return 0;
     });
   }, [posts, searchQuery]);
@@ -55,7 +55,7 @@ export function PostList({ posts }: PostListProps) {
         {filteredPosts.length > 0 ? (
           filteredPosts.map((post) => {
             const isComingSoon = post.tags.includes("coming-soon");
-            
+
             return (
               <article key={post.slug} className="group">
                 {isComingSoon ? (
@@ -63,9 +63,10 @@ export function PostList({ posts }: PostListProps) {
                     <div className="flex flex-col gap-1">
                       <div className="flex items-center gap-2">
                         <time className="text-sm font-mono text-muted-foreground/80">
-                          {post.date} {post.readingTime && `• ${post.readingTime}`}
+                          {post.date}{" "}
+                          {post.readingTime && `• ${post.readingTime}`}
                         </time>
-                        <span className="text-xs font-medium px-2 py-0.5 bg-muted/50 text-muted-foreground rounded-md border border-border">
+                        <span className="text-xs font-semibold px-1.5 py-0.5 bg-amber-500/20 text-amber-700 dark:text-amber-400 rounded-full border-2 border-amber-500/40 dark:border-amber-400/40 shadow-sm">
                           Coming Soon
                         </span>
                       </div>
@@ -78,14 +79,15 @@ export function PostList({ posts }: PostListProps) {
                     </p>
                   </div>
                 ) : (
-                  <Link 
-                    href={`/blog/${post.slug}`} 
+                  <Link
+                    href={`/blog/${post.slug}`}
                     prefetch={true}
                     className="block space-y-2 p-4 -mx-4 rounded-xl transition-all duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] hover:bg-muted/40"
                   >
                     <div className="flex flex-col gap-1">
                       <time className="text-sm font-mono text-muted-foreground/80">
-                        {post.date} {post.readingTime && `• ${post.readingTime}`}
+                        {post.date}{" "}
+                        {post.readingTime && `• ${post.readingTime}`}
                       </time>
                       <h2 className="text-2xl sm:text-3xl font-bold tracking-tight transition-colors group-hover:text-primary">
                         {post.title}
