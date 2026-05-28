@@ -1,39 +1,22 @@
 import Link from "next/link";
-import Image from "next/image";
 import { Github, Twitter, Rss, Mail, Linkedin } from "lucide-react";
 
 export function SiteFooter() {
   return (
     <footer className="border-t border-border bg-background py-12 mt-auto">
       <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 flex flex-col items-center text-center space-y-6 transition-[max-width] duration-300 ease-in-out">
-        <div className="flex flex-col items-center space-y-4">
-          <Image
-            src="/dp.jpeg"
-            alt="Elhaam Basheer Chaudhry"
-            width={80}
-            height={80}
-            loading="lazy"
-            className="rounded-full border-2 border-border"
-          />
-          <h3 className="font-bold text-lg">Hi, I'm Elhaam Basheer Chaudhry</h3>
-        </div>
-
-        <div className="space-y-3 max-w-2xl">
-          <p className="text-muted-foreground leading-relaxed">
-            I code and research for a living. I run{" "}
-            <a
-              href="https://truedevs.tech"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-primary hover:underline underline-offset-4 decoration-primary/30 transition-all font-medium"
-            >
-              TrueDevs
-            </a>
-            , where we craft thoughtfully engineered websites. In my free time,
-            I code low-level software, read, write, and research about things I
-            find interesting.
-          </p>
-        </div>
+        <p className="text-muted-foreground leading-relaxed max-w-xl">
+          I code and research for a living. I run{" "}
+          <a
+            href="https://truedevs.tech"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary hover:underline underline-offset-4 decoration-primary/30 transition-all font-medium"
+          >
+            TrueDevs
+          </a>
+          , where we craft thoughtfully engineered websites.
+        </p>
 
         <div className="flex items-center gap-6">
           <Link

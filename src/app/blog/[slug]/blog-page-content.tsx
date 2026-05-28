@@ -118,6 +118,12 @@ export function BlogPageContent({
               {post.title}
             </h1>
 
+            {post.description && (
+              <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed">
+                {post.description}
+              </p>
+            )}
+
             <p className="text-base text-muted-foreground">
               Written by{" "}
               <Link
@@ -128,24 +134,25 @@ export function BlogPageContent({
               </Link>
             </p>
 
-            {post.tags.length > 0 && (
-              <div className="flex flex-wrap gap-2 pt-2">
-                {post.tags.map((tag) => (
-                  <Badge
-                    key={tag}
-                    variant="secondary"
-                    className="font-mono text-xs bg-muted/50 text-muted-foreground hover:bg-muted"
-                  >
-                    #{tag}
-                  </Badge>
-                ))}
-              </div>
-            )}
           </header>
 
           <div className="font-serif">
             <BlogContent htmlContent={htmlContent} />
           </div>
+
+          {post.tags.length > 0 && (
+            <div className="flex flex-wrap gap-2 mt-12 pt-8 border-t border-border">
+              {post.tags.map((tag) => (
+                <Badge
+                  key={tag}
+                  variant="secondary"
+                  className="font-mono text-xs bg-muted/50 text-muted-foreground hover:bg-muted"
+                >
+                  #{tag}
+                </Badge>
+              ))}
+            </div>
+          )}
 
           {!isFullscreen && <RelatedPosts currentPost={post} allPosts={allPosts} />}
           {!isFullscreen && <PostNavigation previousPost={previousPost} nextPost={nextPost} />}

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Merriweather, Caveat, JetBrains_Mono } from "next/font/google";
+import { Geist, Literata, Caveat, JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { PostHogClientProvider } from "@/components/posthog-provider";
 import { SiteHeader } from "@/components/site-header";
@@ -22,9 +22,7 @@ const jetbrainsMono = JetBrains_Mono({
   preload: true,
 });
 
-const merriweather = Merriweather({
-  weight: ["300", "400", "700", "900"],
-  style: ["normal", "italic"],
+const literata = Literata({
   subsets: ["latin"],
   variable: "--font-serif",
   display: "swap",
@@ -104,7 +102,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${jetbrainsMono.variable} ${merriweather.variable} ${caveat.variable} min-h-screen flex flex-col antialiased font-sans bg-background text-foreground`}
+        className={`${geistSans.variable} ${jetbrainsMono.variable} ${literata.variable} ${caveat.variable} min-h-screen flex flex-col antialiased font-sans bg-background text-foreground`}
       >
         <ThemeProvider
           attribute="class"
