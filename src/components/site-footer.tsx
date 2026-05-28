@@ -20,7 +20,7 @@ export function SiteFooter() {
 
         <div className="space-y-3 max-w-2xl">
           <p className="text-muted-foreground leading-relaxed">
-            I make fast and SEO-friendly websites for a living. I run{" "}
+            I code and research for a living. I run{" "}
             <a
               href="https://truedevs.tech"
               target="_blank"
@@ -30,8 +30,8 @@ export function SiteFooter() {
               TrueDevs
             </a>
             , where we craft thoughtfully engineered websites. In my free time,
-            I code low-level software, read and write about things I find
-            interesting.
+            I code low-level software, read, write, and research about things I
+            find interesting.
           </p>
         </div>
 
@@ -55,7 +55,7 @@ export function SiteFooter() {
             <span className="sr-only">LinkedIn</span>
           </Link>
           <Link
-            href="https://x.com/standoutcoder"
+            href="https://x.com/elhaamthinks"
             target="_blank"
             rel="noopener noreferrer"
             className="text-muted-foreground hover:text-primary transition-colors hover:scale-110 duration-200"

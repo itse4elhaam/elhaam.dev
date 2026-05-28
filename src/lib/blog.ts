@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import { isTest } from "@/lib/post-status";
 
 const postsDirectory = path.join(process.cwd(), "content");
 
@@ -53,14 +54,9 @@ export function getAllPosts(): BlogPost[] {
   }
   
   const isProduction = process.env.NODE_ENV === "production";
-  
+
   return allPosts
-    .filter((post) => {
-      if (isProduction && post.tags.includes("test")) {
-        return false;
-      }
-      return true;
-    })
+    .filter((post) => !(isProduction && isTest(post)))
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 

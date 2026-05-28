@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import Link from "next/link";
 import { Search } from "lucide-react";
 import { type BlogPost } from "@/lib/blog";
+import { isArchived, isComingSoon } from "@/lib/post-status";
 
 interface PostListProps {
   posts: BlogPost[];
@@ -13,7 +14,7 @@ export function PostList({ posts }: PostListProps) {
   const [searchQuery, setSearchQuery] = useState("");
 
   const filteredPosts = useMemo(() => {
-    let postsToFilter = posts;
+    let postsToFilter = posts.filter((post) => !isArchived(post));
 
     if (searchQuery) {
       const lowerQuery = searchQuery.toLowerCase();
@@ -27,8 +28,8 @@ export function PostList({ posts }: PostListProps) {
     }
 
     return postsToFilter.sort((a, b) => {
-      const aIsComingSoon = a.tags.includes("coming-soon");
-      const bIsComingSoon = b.tags.includes("coming-soon");
+      const aIsComingSoon = isComingSoon(a);
+      const bIsComingSoon = isComingSoon(b);
 
       if (aIsComingSoon && !bIsComingSoon) return 1;
       if (!aIsComingSoon && bIsComingSoon) return -1;
@@ -54,11 +55,11 @@ export function PostList({ posts }: PostListProps) {
       <div className="space-y-12">
         {filteredPosts.length > 0 ? (
           filteredPosts.map((post) => {
-            const isComingSoon = post.tags.includes("coming-soon");
+            const comingSoon = isComingSoon(post);
 
             return (
               <article key={post.slug} className="group">
-                {isComingSoon ? (
+                {comingSoon ? (
                   <div className="block space-y-2 p-4 -mx-4 rounded-xl opacity-60 cursor-not-allowed">
                     <div className="flex flex-col gap-1">
                       <div className="flex items-center gap-2">

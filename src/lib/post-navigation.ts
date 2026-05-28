@@ -1,9 +1,5 @@
 import { BlogPost } from "@/lib/blog";
-
-interface NavigationLink {
-  post: BlogPost;
-  direction: "previous" | "next";
-}
+import { isArchived, isTest } from "@/lib/post-status";
 
 function getAdjacentPost(
   currentPost: BlogPost,
@@ -11,7 +7,7 @@ function getAdjacentPost(
   direction: "previous" | "next"
 ): BlogPost | null {
   const sortedPosts = [...allPosts]
-    .filter((post) => !post.tags.includes("coming-soon") && !post.tags.includes("test"))
+    .filter((post) => !isArchived(post) && !isTest(post))
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   const currentIndex = sortedPosts.findIndex((post) => post.slug === currentPost.slug);

@@ -3,7 +3,7 @@ title: "Systems for AI, Not for Humans"
 description: "The death of interfaces and what comes next."
 date: "2025-01-18"
 category: "engineering"
-tags: ["ai", "interfaces", "future", "coming-soon"]
+tags: ["ai", "interfaces", "future", "archived"]
 ---
 
 We've spent decades perfecting user interfaces. Beautiful buttons. Intuitive navigation. Delightful animations. But what happens when humans aren't the primary users anymore?

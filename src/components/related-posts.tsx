@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { BlogPost } from "@/lib/blog";
+import { isComingSoon, isArchived } from "@/lib/post-status";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
@@ -12,7 +13,7 @@ export function RelatedPosts({ currentPost, allPosts }: RelatedPostsProps) {
   // Find related posts by category or tags
   const related = allPosts
     .filter((post) => post.slug !== currentPost.slug)
-    .filter((post) => !post.tags.includes("coming-soon"))
+    .filter((post) => !isComingSoon(post) && !isArchived(post))
     .map((post) => {
       let score = 0;
       if (post.category === currentPost.category) score += 2;

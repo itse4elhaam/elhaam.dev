@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getAllPosts } from "@/lib/blog";
+import { isComingSoon, isArchived } from "@/lib/post-status";
 import { markdownToHtml } from "@/lib/markdown";
 import { getPreviousPost, getNextPost } from "@/lib/post-navigation";
 import { TextSelectionShare } from "@/components/text-selection-share";
@@ -16,7 +17,7 @@ interface BlogPageProps {
 export async function generateStaticParams() {
   const posts = getAllPosts();
   return posts
-    .filter((post) => !post.tags.includes("coming-soon"))
+    .filter((post) => !isComingSoon(post) && !isArchived(post))
     .map((post) => ({
       slug: post.slug,
     }));
@@ -69,7 +70,7 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
   const posts = getAllPosts();
   const post = posts.find((p) => p.slug === slug);
 
-  if (!post || post.tags.includes("coming-soon")) {
+  if (!post || isComingSoon(post) || isArchived(post)) {
     notFound();
   }
 
