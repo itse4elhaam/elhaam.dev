@@ -1,6 +1,6 @@
 ---
 title: "Offend the bugs and defend the system"
-description: "I want code that recovers from temporary failures and refuses to carry broken assumptions forward. Retries, assertions, guard clauses, and fail-fast all have a place."
+description: "A script can recover from a network failure and refuse to continue with a broken order. I want both in the code I ship."
 date: "2026-09-02"
 category: "engineering"
 tags: ["engineering", "error-handling", "reliability", "typescript"]
@@ -8,34 +8,25 @@ tags: ["engineering", "error-handling", "reliability", "typescript"]
 
 Defensive and offensive programming belong in the same system. Their names make that harder to see than it should be.
 
-I can write a script that recovers from a temporary network failure with retries. I can also add assertions to ensure bullshit states don't make it any further. Both decisions protect production.
+I can write a script that recovers from a temporary network failure with retries. I can also add assertions to ensure bullshit states don't make it any further. Both decisions protect production. So why would I have to choose between them?
 
-So why would I have to choose between them?
+Imagine we're writing a small script that prepares receipts. It looks up an order, checks whether it's paid, and returns the information we'll need for the receipt.
 
-The useful distinction is what failed, what we know about it, and whether continuing is safe.
+The first time it tries to read an order, the connection times out. The script hasn't received an answer within the time we allowed. Networks do that. I'd have it wait briefly and try the read again, with a limit so it eventually gives up if the problem continues. That's a retry, and it's one way to write defensively: we've anticipated a failure and decided how to handle it.
 
-## Two questions I want the code to answer
+The second attempt succeeds. We have an order, but the customer hasn't paid yet. That's fine too. There's no receipt to prepare, so the function returns `null`, meaning there's nothing to return for this order. Nobody needs to be woken up because a customer hasn't finished checking out.
 
-People use these terms a little differently. Here's the distinction I find useful:
+Now imagine the next order is marked as paid, but its payment ID is missing. That ID is the reference connecting the order to its payment record.
 
-| Question | Response | Usually called |
-| --- | --- | --- |
-| What happens when the outside world misbehaves? | Validate, reject, retry where safe, or use a meaningful fallback. | Defensive programming |
-| What happens when a rule our code relies on is broken? | Stop the affected operation and expose the broken assumption. | Offensive programming |
+In this system, an order is only marked paid after that reference has been saved. We don't support free orders or manual payments here. Given those rules, this order should never have reached this state.
 
-An API timing out is something I expect to happen. A paid order missing the transaction that made it paid is a different kind of problem, **if our system requires that transaction before marking an order paid**.
+This is where I'd stop. I wouldn't want another part of the system preparing a receipt on the assumption that the payment information is complete.
 
-That condition matters. Free orders, manual payments, and eventually consistent workflows might have different rules. You have to establish the rule before asserting it.
+The rule we've broken has a name: an **invariant**. It means a condition that must hold at a particular point in the program. Ours is simple: once an order is paid, it must have a payment ID. If your checkout allows payment details to arrive later, you'd need a different rule.
 
-An *invariant* is a condition that must hold at a particular point in the program. Calling it an invariant doesn't make it true. It tells the next engineer what the rest of the code depends on.
+An **assertion** turns that assumption into a check the program actually runs. In this case, it checks that the payment ID exists and throws an error if it doesn't. People generally call this offensive programming: we've made a broken assumption fail visibly, close to where we found it.
 
-When that condition fails, I'd want to know before another operation uses the broken state.
-
-## The same function can do both
-
-Suppose I'm preparing receipt data. The order might not exist, or it might still be unpaid. Both are normal outcomes for this function. Once it's paid, our contract requires a payment ID.
-
-This TypeScript sketch uses two application helpers: `loadOrder` returns a validated order or `null`; `retryTransientRead` retries only recognized temporary read failures, with timeouts, backoff, and a limit of three total attempts.
+Here's how those decisions fit in one function. The two helper functions stand in for application code: `loadOrder` reads and validates the order data, while `retryTransientRead` handles temporary read failures with a timeout for each attempt, a delay between attempts, and a limit of three total attempts.
 
 ```ts
 import assert from "node:assert/strict";
@@ -63,74 +54,28 @@ async function prepareReceipt(orderId: string) {
 }
 ```
 
-The retry handles temporary unavailability. The early returns handle ordinary business outcomes. The assertion exposes a violated contract.
+Those two early returns are **guard clauses**. They deal with a condition at the top of the function and leave early, so the rest of the work doesn't need to sit inside several layers of `if` statements. A guard clause can also throw an error. Whether we return or throw depends on what the condition means in that function.
 
-Notice where the retry ends: before the assertion. Running the same broken order through the function three times won't create its missing payment record.
+The assertion also demonstrates **fail-fast**: stop as soon as we have enough information to know something is wrong. The payment ID is missing, and we know it is required here. There's no reason to pass that problem further along.
 
-I'd also be careful about what gets retried. A timed-out payment request may already have charged the customer. Repeating a write needs a way to prevent duplicate effects, such as a supported idempotency key reused for the same operation. Retry limits, backoff, and jitter keep recovery attempts from overwhelming a struggling dependency. AWS explains these trade-offs in its guidance on [controlling retry calls](https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/rel_mitigate_interaction_failure_limit_retries.html).
+Fail-fast also applies when someone sends us an invalid request. If a customer asks to buy minus three items, we can reject that input immediately and explain the problem. Bad input is something we expect from the outside world, so that check is defensive too. These terms overlap because they're describing different decisions.
 
-## Guard clauses describe the shape of the code
+What bothers me is how easily we can make the broken order look harmless. Replace the assertion with a fallback like `order.paymentId ?? ""`, and a missing payment ID becomes an empty string. The function returns receipt data. Anything using that result now has to discover the problem again, assuming it checks at all.
 
-A guard clause exits early so the main path stays flat. The condition and the exit behavior tell you what it means.
+A fallback needs a meaning the product can support. An empty display name might be fine for an anonymous visitor. In our receipt script, an empty payment reference hides information we need. I'd rather the error point straight to the order that broke the rule than have someone chase it through a customer complaint later.
 
-```ts
-// A missing order is a normal result of this lookup.
-if (!order) return null;
+Of course, stopping the function is only part of the job. Node's [`assert` throws an error](https://nodejs.org/api/assert.html#assertokvalue-message); it doesn't automatically shut down the entire service. The code running this script should record which order failed and report it for investigation. It can continue processing other orders if those jobs are independent and no shared state was damaged.
 
-// Here, our contract says the order must already exist.
-if (!order) {
-  throw new Error("Expected an order after successful creation");
-}
-```
+And notice that our retry only wraps the read. Retrying the same broken order won't create its missing payment record. Restarting the script won't fix that bug either. We need to find out how the order got into that state.
 
-These are alternative contracts, not two checks I'd put next to each other in one function.
+There's another detail I'd care about before shipping this: retrying a payment is riskier than retrying a read. A payment request can time out after the customer has already been charged. Repeating it needs protection against charging twice. A payment provider's idempotency key can do that: reuse the same key for the same payment attempt so the provider recognizes a repeated request. AWS explains the details in [making retries safe](https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/).
 
-Both are guard clauses. One handles an expected absence. The other reports a broken assumption. An early return can make the code easier to read, but it doesn't tell you whether returning is the correct thing to do.
+An assertion won't reverse a charge or undo a database write that already happened. I'd put the check before that work wherever possible. When several database changes must succeed together, a **transaction** lets us save all of them or undo them together.
 
-That's a separate decision.
+If two requests can change the same record at once, the database may need to enforce the rule as well. Checking a value once doesn't guarantee it stays true while we're working.
 
-## Assertions make a claim. Fail-fast decides when to stop.
+That's why I care about what happens around the check as much as the check itself. Does the script recover from a temporary failure? Does it stop before using a broken order? Will we know which order failed and have enough information to fix it?
 
-An assertion says: this condition must be true here. Node's `assert` throws an `AssertionError` when its condition is falsy. That's runtime behavior, and a surrounding error handler can catch it. It doesn't automatically mean shutting down the whole service. See the [Node.js assertion documentation](https://nodejs.org/api/assert.html#assertokvalue-message).
-
-Fail-fast is broader: detect a problem at the earliest point where you have enough information to identify it, and stop the affected operation.
-
-Rejecting an invalid quantity at an HTTP boundary is defensive and fail-fast. Asserting that an internal calculation obeys its contract can be offensive and fail-fast.
-
-The keyword doesn't decide the philosophy. Throwing a validation error for bad user input is still ordinary input handling. And a TypeScript type alone doesn't validate a value arriving over the network.
-
-I want validation where data enters the system, types that express what we've established, and meaningful runtime checks where breaking a contract would matter.
-
-## A fallback is a decision about the product
-
-Consider this:
-
-```ts
-return customer?.name ?? "";
-```
-
-That might be completely reasonable. Perhaps the screen supports anonymous customers and an empty name has a defined meaning.
-
-But if this operation requires a customer, what have we just done?
-
-We've turned a missing customer into a blank label. The operation can keep going while the reason it went wrong gets harder to find. Someone may discover it later through a support ticket or an incorrect invoice.
-
-Before accepting a fallback, I'd ask: **is this a valid result, and what will the next piece of code believe when it receives it?**
-
-If the answer is that we're hiding a broken assumption, I want the failure exposed.
-
-## Stopping safely takes more than an assertion
-
-An assertion can protect the rest of the system by stopping the current operation before it spreads invalid state. That is the production benefit of being offensive about an invariant.
-
-It still needs somewhere sensible to land. A request handler can record the failure and return an error. A worker can mark the job failed and surface it for investigation. The report needs enough context to locate the problem without dumping sensitive customer data into logs.
-
-Throwing doesn't undo a database write or reverse a payment. Put checks before side effects where possible, and use transactions or explicit recovery for work that can partially complete. A check can also become stale before a concurrent write, so some rules need enforcement in the database itself.
-
-A supervisor restarting a failed worker can restore service, but restarting won't repair corrupt data or fix a deterministic bug. The same job may fail again. Recovery needs limits and a path for investigation.
-
-The question I care about in review is: **what happens after this check fails?**
-
-For a temporary outage, I'd expect a bounded recovery attempt. For invalid input, a clear rejection. For a broken invariant, stop the affected work, report it, and fix the cause.
+The retry and the assertion are both there because I care about the system continuing to work correctly.
 
 Be defensive about the world. Be offensive about your own assumptions. I want both in the code I ship.
